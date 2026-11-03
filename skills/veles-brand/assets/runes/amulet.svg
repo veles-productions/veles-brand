@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="136" height="322" viewBox="-8 0 136 322">
+<g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter">
+<path d="M60 4 L68 12 L60 20 L52 12 Z M60 20 V34 M60 98 V104 M60 104 L68 112 L60 120 L52 112 Z M60 120 V126 M60 190 V196 M60 196 L68 204 L60 212 L52 204 Z M60 212 V218 M60 282 V290"/>
+<path class="accent" d="M60 290 L74 304 L60 318 L46 304 Z M60 296 V312 M53 304 H67"/>
+<g transform="translate(-4 36)"><path class="accent" d="M30 56 V20 M8 44 V38 H52 V44 M18 20 L30 6 L42 20 Z"/></g>
+<g transform="translate(64 36)"><path d="M12 8 H48 M22 8 V24 H38 V8 M30 24 V54 M22 54 H38"/></g>
+<g transform="translate(-4 128)"><path d="M16 8 H36 V28 H16 Z M24 20 H44 V40 H24 Z M34 40 V54 M26 54 H42"/></g>
+<g transform="translate(64 128)"><path d="M14 10 V32 H46 V10 M25 16 H35 V26 H25 Z M30 32 V54 M22 54 H38"/></g>
+<g transform="translate(-4 220)"><path d="M30 4 V10 M14 10 H46 L30 26 Z M30 26 V30 M18 30 H42 L30 42 Z M30 42 V56"/></g>
+<g transform="translate(64 220)"><path d="M18 6 H42 V30 H18 Z M22 10 L38 26 M38 10 L22 26 M30 30 V54 M22 54 H38"/></g>
+</g>
+</svg>

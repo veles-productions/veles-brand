@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Veles UI components — label, buttons, card</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+<style>body{margin:0;background:#160606;font-family:'Alliance No.2',Manrope,sans-serif;padding:8vh 6vw;display:grid;gap:48px}</style>
+</head>
+<body>
+
+<!-- ============ VELES EMBED START — CSS for label, buttons and card (paste once, site-wide) ============ -->
+<style>
+.vx-label{display:inline-flex;align-items:center;gap:10px;font-weight:600;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#e7e9ed}
+.vx-label:before{content:"";width:8px;height:8px;background:#ef3e46;flex:none}
+.vx-btn{display:inline-flex;align-items:center;gap:14px;padding:16px 22px;font:600 15px/1 'Alliance No.2',Manrope,sans-serif;text-decoration:none;border-radius:2px;border:1px solid transparent;cursor:pointer;transition:background 200ms cubic-bezier(.2,0,0,1),color 200ms cubic-bezier(.2,0,0,1),border-color 200ms cubic-bezier(.2,0,0,1)}
+.vx-btn:after{content:"\2192";transition:transform 200ms cubic-bezier(.2,0,0,1)}
+.vx-btn:hover:after{transform:translateX(4px)}
+.vx-btn--red{background:#ef3e46;color:#160606}
+.vx-btn--red:hover{background:#e7e9ed}
+.vx-btn--line{background:transparent;color:#e7e9ed;border-color:rgba(231,233,237,.35)}
+.vx-btn--line:hover{border-color:#e7e9ed}
+.vx-card{display:block;background:#231f20;color:#e7e9ed;text-decoration:none;max-width:380px;border-radius:0}
+.vx-card img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover}
+.vx-card .vx-card-body{padding:22px 22px 26px}
+.vx-card h3{font-weight:800;font-size:24px;margin:10px 0 8px;letter-spacing:-.01em}
+.vx-card p{font-weight:300;font-size:16px;line-height:1.55;color:#aab2bd;margin:0}
+.vx-card .vx-card-media{background:rgba(231,233,237,.07);aspect-ratio:16/10}
+@media (prefers-reduced-motion:reduce){.vx-btn,.vx-btn:after{transition:none}}
+</style>
+<!-- ============ VELES EMBED END ============ -->
+
+<div><span class="vx-label">Virtual production</span></div>
+<div style="display:flex;gap:14px;flex-wrap:wrap">
+  <a class="vx-btn vx-btn--red" href="#">Start a project</a>
+  <a class="vx-btn vx-btn--line" href="#">See our work</a>
+</div>
+<a class="vx-card" href="#">
+  <div class="vx-card-media" role="img" aria-label="Place a Veles set photo here"></div>
+  <div class="vx-card-body"><span class="vx-label">Solutions</span><h3>Card title.</h3><p>Sharp corners, dark panel, a real photo on top, one label, one headline with a full stop.</p></div>
+</a>
+</body>
+</html>

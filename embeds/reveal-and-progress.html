@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Veles reveal and progress — embed</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;600;800&display=swap" rel="stylesheet">
+<style>
+  html,body{margin:0;background:#160606;color:#e7e9ed;font-family:'Alliance No.2',Manrope,sans-serif}
+  .demo section{min-height:70vh;padding:12vh 6vw;box-sizing:border-box}
+  .demo section.light{background:#e7e9ed;color:#160606}
+  .demo section.red{background:#ef3e46;color:#160606}
+  .demo h2{font-weight:800;font-size:clamp(36px,6vw,88px);margin:0 0 24px;letter-spacing:-.02em;line-height:1}
+  .demo p{font-weight:300;font-size:19px;line-height:1.6;max-width:48ch;margin:0}
+</style>
+</head>
+<body>
+
+<!-- ============ VELES EMBED START — paste ONCE per page (site-wide: Webflow > Page/Site settings > Before </body>) ============ -->
+<div class="vx-progress" aria-hidden="true"></div>
+<style>
+.vx-progress{position:fixed;top:0;left:0;height:2px;width:100%;background:#ef3e46;transform-origin:0 50%;transform:scaleX(0);z-index:9999;pointer-events:none;transition:transform 200ms cubic-bezier(.2,0,0,1)}
+.vx-js .vx-reveal{opacity:0;transform:translateY(12px);transition:opacity 800ms cubic-bezier(.2,0,0,1),transform 800ms cubic-bezier(.2,0,0,1)}
+.vx-js .vx-reveal.is-in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  .vx-progress{transition:none}
+  .vx-js .vx-reveal{opacity:1;transform:none;transition:none}
+}
+</style>
+<script>
+(function(){
+  if(window.__vxReveal)return;window.__vxReveal=1;
+  var bar=document.querySelector(".vx-progress");
+  function onScroll(){
+    var h=document.documentElement,max=h.scrollHeight-h.clientHeight;
+    if(bar)bar.style.transform="scaleX("+(max>0?h.scrollTop/max:0)+")";
+  }
+  window.addEventListener("scroll",onScroll,{passive:true});onScroll();
+  if(!("IntersectionObserver" in window))return;   /* no observer: everything simply stays visible */
+  document.documentElement.classList.add("vx-js");
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("is-in");io.unobserve(e.target)}});
+  },{threshold:.15,rootMargin:"0px 0px -8% 0px"});
+  function watch(){document.querySelectorAll(".vx-reveal:not(.is-in)").forEach(function(el){io.observe(el)})}
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",watch);else watch();
+})();
+</script>
+<!-- ============ VELES EMBED END — then add the class "vx-reveal" to any block that should rise in ============ -->
+
+<div class="demo">
+  <section><h2 class="vx-reveal">Reveal on scroll.</h2><p class="vx-reveal">Add the class <b>vx-reveal</b> to any heading, paragraph, card or image. It rises 12 px and fades in once. Without JavaScript, or with reduced motion, everything is simply visible.</p></section>
+  <section class="light"><h2 class="vx-reveal">Light sections.</h2><p class="vx-reveal">Light paper is #e7e9ed with Veles black text. The red line at the top of the window shows how far you have read.</p></section>
+  <section class="red"><h2 class="vx-reveal">Red breaks.</h2><p class="vx-reveal">Full Veles red with black type, for section breaks and banners. Never for long text.</p></section>
+  <section><h2 class="vx-reveal">That is all.</h2><p class="vx-reveal">No parallax, no bounce, no glow.</p></section>
+</div>
+</body>
+</html>

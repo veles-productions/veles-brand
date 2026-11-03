@@ -1,0 +1,24 @@
+description = "Wygeneruj materiał w brandzie Veles (deck / onepager / raport / dokument / stopka maila) jako self-contained HTML."
+
+prompt = """
+Pracujesz w systemie brandowym Veles Productions (rozszerzenie veles-brand).
+Pliki systemu są w katalogu tego rozszerzenia, pod `skills/veles-brand/`
+(np. `~/.gemini/extensions/veles-brand/skills/veles-brand/` albo `.gemini/extensions/veles-brand/skills/veles-brand/`).
+
+Zanim cokolwiek wygenerujesz, wykonaj DOKŁADNIE:
+
+1. Przeczytaj `skills/veles-brand/SKILL.md` — tożsamość marki, router, guardraile.
+2. Dobierz szablon po typie i przeczytaj `skills/veles-brand/templates/<typ>.md`
+   (deck / onepager / report / document / email). Skopiuj `templates/_shared.html` jako bazę.
+3. Wartości liczbowe bierz WYŁĄCZNIE z `skills/veles-brand/tokens/tokens.json` — paleta jest ZAMKNIĘTA.
+4. Osadź fonty + logo: `python3 skills/veles-brand/scripts/embed_assets.py draft.html out.html`.
+5. QA OBOWIĄZKOWE: przejdź `skills/veles-brand/brand/checklist.md` (grep kolorów/fontów + render-check).
+6. Materiał do druku/wysyłki → PDF: `skills/veles-brand/scripts/html2pdf.sh out.html`.
+
+Jeśli nie masz dostępu do tych plików — trzymaj się reguł z GEMINI.md (paleta, fonty, logo, tagline).
+
+Twarde zakazy: hex spoza palety (#160606 #ef3e46 #cdd1da + flexible #231f20 #817f7e #aab2bd #e7e9ed; #000000 zakazany),
+font spoza stacka 'Alliance No.2', Manrope, sans-serif, wordmark „VELES." z kropką, transformacje logo.
+
+Zadanie użytkownika: {{args}}
+"""

@@ -1,0 +1,113 @@
+# Veles Productions — brand rules for AI agents
+
+You are working for **Veles Productions** (Warsaw, est. 2022): creative production, virtual
+production on LED walls, real-time worlds and AI agents. Every visual or written material
+you produce for Veles follows **Brand 3.2** below. This file replaces every older Veles
+brand instruction you may have (see "Retired" at the bottom).
+
+Full brand book: `BRAND-BOOK.md` (same folder). Tokens: `skills/veles-brand/tokens/tokens.css`. Assets: `skills/veles-brand/assets/`.
+Live brand book: https://veles-productions.github.io/veles-brand/
+
+## 1. Colour — closed palette
+
+| Token | Hex | Use |
+|---|---|---|
+| `--veles-black` | `#160606` | Veles black — warm, reddish. All dark backgrounds, dark text. |
+| `--veles-red` | `#ef3e46` | The only red. Accent: label, accent bar, CTA, one word in a headline, the courage sign. |
+| `--veles-grey` | `#cdd1da` | Foundational grey. |
+| `--veles-panel` | `#231f20` | Dark panel. |
+| `--veles-grey-mid` | `#817f7e` | Secondary text. |
+| `--veles-grey-blue` | `#aab2bd` | Lines, captions. |
+| `--veles-near-white` | `#e7e9ed` | Text on dark, paper. |
+| white | `#ffffff` | Paper and text on black. |
+
+- Any other hex is an error. Shades only as `rgba()` of these values.
+- **Never `#000000`.** Never the old reds `#c8313a`, `#e0233a`, `#dd0000`, `#bc3138`.
+- Red is an accent, never the background of long text. Full red is allowed for covers,
+  section breaks and banners (with the **black** logo).
+
+## 2. Type
+
+- Brand font: **Alliance No.2** (licence pending). Until it ships, use **Manrope**
+  (Google Fonts, OFL; files in `skills/veles-brand/assets/fonts/`). Stack: `'Alliance No.2', Manrope, sans-serif`.
+- Weights: headline **800**, body **300**, plus 400 / 500 / 600. Nothing else.
+- Headlines in sentence case **ending with a full stop**: "Stories + Systems.", "Our work."
+  Never a full stop after the wordmark VELES.
+- **Retired: BR Hendrix, Arial.** Do not use them anywhere.
+
+## 3. Logo
+
+- Vertical lockup (triangular V over the spaced wordmark VELES). Files: `skills/veles-brand/assets/logo/Logo_<colour>.png` (tight crop; `Logo_big_*` keep clear space).
+- Only three combinations: **red logo on Veles black**, **black logo on red**,
+  **black logo on white**. Never recolour, crop, rotate, stretch, or place on a photo or pattern.
+- Minimum size: **88 px** on screen, **16 mm** in print (cover 32 mm). Clear space around it.
+- No logo in page footers — write "Veles Productions" in text instead.
+- In flexbox, give the logo `align-self:flex-start` so it never stretches.
+
+## 4. The Veles signs and the pixel sign
+
+- Six value signs, built on the construction of angular Glagolitic script (the Baška tablet,
+  Croatia, c. 1100): **power, connections, passion, courage, creativity, integrity**, plus the
+  **amulet of Veles** and six functional signs (chapter, insight, risk, decision, plan, seal).
+  Files: `skills/veles-brand/assets/runes/*.svg`. Stroke only, `currentColor`, angles 0°/45°/90° only.
+- **Courage** is the leading sign: the only one pointing up and the only one that may be red.
+- They are our own constructed sign language, not a historical alphabet — never claim otherwise.
+  No Nordic runes, no futhark, no Viking styling.
+- **Rarity:** never a sign next to every heading or bullet. A value sign at most once per
+  document; amulet and seal once per document; 2–3 functional signs per page at most.
+  Functional signs replace emoji (no 💡 ⚠️ 📈 in Veles materials).
+- **Pixel sign** = the brand's graphic element: a value sign drawn on a 15×15 grid like
+  cross-stitch, shown like an LED wall. Live and animated only in a website hero or an app
+  start screen (`embeds/pixel-sign-hero.html`). In print: one small static pixel sign as a
+  signature, never page-size, never a wallpaper pattern.
+
+## 5. Layouts
+
+- **Kadr ("frame")** — decks, offers, sales materials, banners: a real Veles set photo carries
+  the cover, black gradient under the headline, red logo, small pixel sign as signature.
+- **Gazeta ("newspaper")** — reports, letters, official documents: light paper `#e7e9ed`,
+  black logo, masthead line, red rule above the title, courage sign as a barely visible hairline.
+- **Red** — banners and section breaks: full `#ef3e46`, black logo, black text.
+- Big type, full-bleed images, sharp corners (max 4 px radius in UI), lots of space.
+  No gradients except the photo darkening, no glow, no coloured shadows, no textures
+  (no parchment, sepia, wear — "ancient" is shown with geometry and motion, never with texture).
+
+## 6. Motion
+
+- Allowed: reveal on scroll, sign drawn by stroke, light/dark section wipe, progress bar,
+  and in hero only the pixel-sign tile flip. Easing `cubic-bezier(0.2,0,0,1)`, 200/400/800 ms.
+- `prefers-reduced-motion: reduce` is mandatory on everything that moves.
+- Ready snippets: `embeds/`.
+
+## 7. Voice
+
+- Tagline: **"Shaping Digital Worlds for Human Future"** (never translated).
+- English: professional, aspirational, concrete. Polish: short sentences, numbers instead of
+  adjectives, no corporate speak, Polish typography („…”, spaced en dashes).
+
+## 8. Veles Systems (sister brand — not final)
+
+Veles Systems uses the same language with a green accent `#2f9e44` instead of red, black
+logo only, no white screens. **Its brand book is not finished** — do not design Systems
+materials from this kit except where `systems/README.md` explicitly allows it.
+
+## Retired — remove from your instructions
+
+BR Hendrix, Arial, `#000000` as brand black, reds `#c8313a` `#e0233a` `#dd0000` `#bc3138`,
+the 45° parallelogram from Brandbook v0, the "Pole LED" full-page pixel wall, Kurpie paper-cut
+bands across the page, emoji icons, "VELES." with a full stop.
+
+## Making materials with this repository
+
+This repository is also the Veles brand plugin (Claude Code, Gemini CLI). To build a deck,
+one-pager, report, document, web document or e-mail footer:
+
+1. `skills/veles-brand/SKILL.md` — router to the templates and guardrails.
+2. `skills/veles-brand/templates/<type>.md` — recipe for the material type.
+3. `skills/veles-brand/brand/rules.md`, `dont.md`, `runes.md`, `motion-guidelines.md`,
+   `checklist.md` — detailed rules (Polish) and QA before handing over.
+4. Copy `templates/_shared.html` (or `_shared-webdoc.html`), fill it, then
+   `python3 skills/veles-brand/scripts/embed_assets.py draft.html out.html`; PDF via
+   `skills/veles-brand/scripts/html2pdf.sh`.
+
+Never put secrets or client data into files of this repository — it is public.

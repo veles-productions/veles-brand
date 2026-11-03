@@ -1,0 +1,10 @@
+{
+  "name": "veles-brand",
+  "version": "1.4.0",
+  "description": "Veles Productions Brand & Design System — generuje materiały w brandzie (deck, onepager, raport, dokument, stopka maila) jako self-contained HTML. Brand 3.2: czerń #160606, font Alliance No.2 / Manrope, znaki Velesa, Kadr i Gazeta, logo, tokeny, zasady, szablony i HTML→PDF.",
+  "author": { "name": "Veles Productions", "url": "https://velesproductions.com" },
+  "homepage": "https://github.com/veles-productions/veles-brand",
+  "repository": "https://github.com/veles-productions/veles-brand",
+  "license": "UNLICENSED",
+  "keywords": ["brand", "design-system", "veles", "html", "pdf", "templates", "tokens"]
+}

@@ -1,0 +1,170 @@
+<!doctype html>
+<!-- Veles shared skeleton. Placeholders {{...}} wypełnia scripts/embed_assets.py.
+     Atomy CSS sprawdzone produkcyjnie (adaptacja build_deck.py; legacy red-dim usunięty zgodnie z dont.md).
+     Strony: .page (A4 landscape, deck) / .page.portrait (A4 portrait, dokumenty). -->
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{{TITLE}}</title>
+<style>
+{{FONT_FACES}}
+:root{
+  --veles-black:#160606; --veles-red:#ef3e46; --veles-grey:#cdd1da;
+  --veles-panel:#231f20; --veles-grey-mid:#817f7e; --veles-grey-blue:#aab2bd; --veles-near-white:#e7e9ed;
+  --veles-red-dim:rgba(239,62,70,.55); --paper:#ffffff;
+  --f:'Alliance No.2',Manrope,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:#231f20}
+body{font-family:var(--f);color:var(--veles-panel);-webkit-font-smoothing:antialiased}
+
+/* pages */
+.page{position:relative;width:297mm;height:210mm;overflow:hidden;page-break-after:always;margin:0 auto;background:var(--paper)}
+.page.portrait{width:210mm;height:297mm}
+.page:last-child{page-break-after:auto}
+.page.dark{background:var(--veles-black);color:var(--veles-near-white)}
+.page.red{background:var(--veles-red);color:var(--veles-black)}
+@media screen{html,body{overflow-x:hidden}body{padding:20px 0}.page{margin:0 auto 26px;box-shadow:0 14px 60px rgba(22,6,6,.55)}}
+@media print{html,body{background:#fff}.page{box-shadow:none}}
+@page{size:A4 landscape;margin:0}
+
+/* type atoms */
+.label{font-weight:600;font-size:9.5pt;letter-spacing:.26em;text-transform:uppercase;color:var(--veles-red)}
+.h1{font-weight:800;font-size:30pt;line-height:1.04;letter-spacing:-.015em;color:var(--veles-black);margin-top:4mm}
+.h1 .r{color:var(--veles-red)}
+.page.dark .h1,.page.red .h1{color:inherit}
+.h2{font-weight:800;font-size:15pt;color:var(--veles-black);margin:0 0 2mm}
+.lede{font-weight:300;font-size:12pt;line-height:1.55;color:var(--veles-panel);margin-top:5mm;max-width:225mm}
+.lede strong,.body strong{font-weight:600;color:var(--veles-black)}
+.body{font-weight:300;font-size:10.5pt;line-height:1.5;color:var(--veles-panel)}
+.mut{color:var(--veles-grey-mid)}
+.acc{width:34mm;height:2.6pt;background:var(--veles-red);margin:7mm 0 0}
+
+/* page chrome */
+.pad{padding:15mm 17mm}
+/* Logo Veles jest lockupem PIONOWYM (sygnet nad wordmarkiem), a napis „VELES" zajmuje
+   ok. 15% jego wysokości — wysokość H daje wordmark ok. 0,15·H. Stąd wartości niżej:
+   11 mm dawało napis 1,6 mm (nieczytelna smuga), 16 mm daje 2,4 mm i trzyma w druku.
+   NIE obniżaj ich bez podmiany assetu na lockup poziomy (brand/gaps.md → G13). */
+.ptop{display:flex;justify-content:space-between;align-items:flex-start}
+.ptop img{height:16mm}
+.ptop .cap{font-weight:500;font-size:8.5pt;letter-spacing:.2em;text-transform:uppercase;color:var(--veles-grey-mid);padding-top:2mm}
+/* Stopka jest TEKSTOWA — bez logo. Znak zmieściłby się w pasku stopki na ok. 5 mm,
+   a to jednocześnie wordmark nie do odczytania (0,7 mm) i złamanie brandbookowego
+   minimum 10 mm w druku. Markę w stopce niesie nazwa firmy, nie miniaturka znaku. */
+.foot{position:absolute;bottom:9mm;left:17mm;right:17mm;display:flex;justify-content:space-between;align-items:center;
+  font-weight:600;font-size:7.5pt;letter-spacing:.2em;text-transform:uppercase;color:var(--veles-grey-mid);border-top:1px solid var(--veles-grey);padding-top:3mm}
+
+/* stat tiles */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6mm;margin-top:9mm}
+.stat{background:var(--veles-near-white);border-top:3pt solid var(--veles-red);padding:7mm 6mm}
+.stat .n{font-weight:800;font-size:30pt;line-height:1;color:var(--veles-black);letter-spacing:-.02em}
+.stat .l{font-weight:500;font-size:8.5pt;letter-spacing:.06em;text-transform:uppercase;color:var(--veles-grey-mid);margin-top:3mm}
+
+/* table */
+table.t{width:100%;border-collapse:collapse;margin-top:9mm;font-weight:400;font-size:9.5pt}
+table.t th,table.t td{padding:3.15mm 4mm;text-align:right;border-bottom:1px solid var(--veles-grey)}
+table.t th:first-child,table.t td:first-child{text-align:left}
+table.t thead th{font-weight:600;font-size:8.5pt;letter-spacing:.04em;color:var(--veles-black);vertical-align:bottom;border-bottom:2pt solid var(--veles-black)}
+table.t tbody tr:nth-child(even) td{background:rgba(231,233,237,.55)}
+table.t .price td{font-weight:800;color:var(--veles-black);font-size:12pt;border-bottom:2pt solid var(--veles-black)}
+table.t .price td.hl{color:var(--veles-red)}
+
+/* tags & cards */
+.tag{display:inline-block;font-weight:600;font-size:7.5pt;letter-spacing:.04em;text-transform:uppercase;padding:1.3mm 2.5mm;border-radius:1mm;border:1px solid}
+.tag.r{color:var(--veles-red);border-color:var(--veles-red)}
+.tag.k{color:var(--veles-black);border-color:var(--veles-black)}
+.tag.g{color:var(--veles-grey-mid);border-color:var(--veles-grey-blue)}
+.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:6mm;margin-top:7mm}
+.col{background:var(--veles-near-white);padding:6mm 5.5mm;border-top:3pt solid var(--veles-black)}
+.col.v2{border-color:var(--veles-grey-blue)} .col.v3{border-color:var(--veles-red)}
+
+/* dark cover */
+.cover{display:flex;flex-direction:column;justify-content:space-between;padding:15mm 17mm;height:100%}
+/* element graficzny Brand 3.0: jeden znak z pikseli (odwaga), statycznie — brand/rules.md §4 */
+.page.dark > .pixel-sign,.page.kadr > .pixel-sign{position:absolute;right:12mm;bottom:11mm;width:11mm;height:11mm;background:url("{{PIXEL_SIGN}}") no-repeat center/contain;pointer-events:none}
+
+/* Oprawa okładek Brand 3.2 (decyzja 2026-11-02, brand/rules.md §4) — dwie odmiany zależnie od kontekstu.
+   KADR (decki, oferty, materiały sprzedażowe): okładkę niesie prawdziwe zdjęcie z planu Veles (<img class="bg">),
+   gradient z czerni Veles pod tytułem, znak z pikseli tylko jako mały podpis w rogu. */
+.page.kadr{background:var(--veles-black);color:var(--veles-near-white)}
+.page.kadr > .cover{position:relative}
+.page.kadr > .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.page.kadr > .shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(22,6,6,.95) 0%,rgba(22,6,6,.84) 38%,rgba(22,6,6,.5) 60%,rgba(22,6,6,.08) 86%,rgba(22,6,6,0) 100%)}
+.page.portrait.kadr > .shade{background:linear-gradient(0deg,rgba(22,6,6,.96) 0%,rgba(22,6,6,.74) 38%,rgba(22,6,6,.12) 72%,rgba(22,6,6,0) 100%)}
+/* GAZETA (raporty, pisma, dokumenty oficjalne): jasny papier, linia nagłówka z metryką, znak odwagi
+   rysowany włosową kreską w skali strony — jedyna dekoracja, ledwo widoczna. */
+.page.gazeta{background:var(--veles-near-white)}
+.page.gazeta::before{content:"";position:absolute;right:-48mm;top:4mm;width:175mm;height:175mm;background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2060%2060%22%3E%3Cpath%20d%3D%22M30%2056%20V20%20M8%2044%20V38%20H52%20V44%20M18%2020%20L30%206%20L42%2020%20Z%22%20fill%3D%22none%22%20stroke%3D%22%23cdd1da%22%20stroke-width%3D%220.14%22%20stroke-linecap%3D%22square%22%20stroke-linejoin%3D%22miter%22%2F%3E%3C%2Fsvg%3E") no-repeat center/contain;pointer-events:none}
+.page.portrait.gazeta::before{right:-70mm;top:-22mm;width:190mm;height:190mm}
+.page.gazeta .cover .h1{color:var(--veles-black)}
+.page.gazeta .cover .meta{color:var(--veles-panel)}
+.page.gazeta .lede{color:var(--veles-panel)}
+.masthead{position:relative;display:flex;flex-wrap:wrap;gap:3mm 9mm;border-top:1px solid var(--veles-black);padding-top:2.6mm;margin-top:8mm;
+  font-weight:600;font-size:7.5pt;letter-spacing:.2em;text-transform:uppercase;color:var(--veles-panel)}
+.page.gazeta .acc{margin:0 0 5mm}
+.cover .logo{height:32mm;position:relative}
+.cover .h1{font-size:44pt;color:#fff;position:relative}
+.cover .h1 .r{color:var(--veles-red)}
+.cover .meta{position:relative;font-weight:500;font-size:9pt;letter-spacing:.2em;text-transform:uppercase;color:var(--veles-grey-blue)}
+</style>
+</head>
+<body>
+
+<!-- COVER — KADR (decki, oferty): zdjęcie z planu Veles + logo czerwone na czerni Veles.
+     Zdjęcie: prawdziwy kadr z produkcji Veles (Media Lab), jako data URI; twarze potwierdza człowiek. -->
+<section class="page kadr">
+  <img class="bg" src="{{COVER_PHOTO}}" alt="{{COVER_PHOTO_ALT}}">
+  <div class="shade"></div>
+  <div class="pixel-sign" aria-hidden="true"></div>
+  <div class="cover">
+    <img class="logo" src="data:image/png;base64,{{LOGO_RED_B64}}" alt="VELES" style="align-self:flex-start">
+    <div>
+      <div class="label">{{COVER_LABEL}}</div>
+      <h1 class="h1">{{COVER_TITLE}}</h1>
+    </div>
+    <div class="meta">{{COVER_META}}</div>
+  </div>
+</section>
+
+<!-- COVER — GAZETA (raporty, pisma, dokumenty): jasny papier, czarne logo, linia z metryką. -->
+<section class="page gazeta">
+  <div class="cover">
+    <div>
+      <img class="logo" src="data:image/png;base64,{{LOGO_BLACK_B64}}" alt="VELES">
+      <div class="masthead"><span>{{DOC_KIND}}</span> <span>{{DOC_DATE}}</span> <span>Veles Productions</span></div>
+    </div>
+    <div>
+      <div class="acc"></div>
+      <h1 class="h1">{{COVER_TITLE}}</h1>
+      <p class="lede">{{COVER_LEDE}}</p>
+    </div>
+    <div class="meta">{{COVER_META}}</div>
+  </div>
+</section>
+
+<!-- CONTENT page pattern -->
+<section class="page">
+  <div class="pad">
+    <div class="ptop">
+      <img src="data:image/png;base64,{{LOGO_BLACK_B64}}" alt="VELES">
+      <div class="cap">{{DOC_CAPTION}}</div>
+    </div>
+    <div class="label" style="margin-top:10mm">{{SECTION_LABEL}}</div>
+    <h1 class="h1">{{SECTION_TITLE}}</h1>
+    <div class="acc"></div>
+    <p class="lede">{{LEDE}}</p>
+    {{CONTENT}}
+  </div>
+  <!-- Stopka tekstowa. Sąsiadujące <span> MUSZĄ być rozdzielone białym znakiem —
+       sklejone (`</span><span>`) dają w ekstrakcie tekstu „VELES PRODUCTIONS2/5"
+       i wywracają bramkę `encoding` w /sprawdz na rozjeździe źródło↔render. -->
+  <div class="foot">
+    <span>VELES PRODUCTIONS</span>
+    <span>{{PAGE_NO}}</span>
+  </div>
+</section>
+
+</body>
+</html>

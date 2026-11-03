@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Veles Brand Book</title>
+<meta name="description" content="Veles Productions Brand Book 3.2 — the new Veles brand.">
+<link rel="icon" href="skills/veles-brand/assets/logo/Logo_small_red_web.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="skills/veles-brand/tokens/tokens.css">
+<style>
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--veles-black);color:var(--veles-near-white);font-family:var(--veles-font);font-weight:300;font-size:18px;line-height:1.6}
+  a{color:inherit}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 32px}
+  @media (max-width:600px){.wrap{padding:0 16px}body{font-size:16px}}
+  .label{display:inline-flex;align-items:center;gap:10px;font-weight:600;font-size:13px;letter-spacing:.12em;text-transform:uppercase}
+  .label:before{content:"";width:8px;height:8px;background:var(--veles-red);flex:none}
+  h1,h2,h3{font-weight:800;letter-spacing:-.02em;line-height:1;margin:0}
+  h2{font-size:clamp(40px,6vw,80px);margin:14px 0 28px}
+  h3{font-size:22px;letter-spacing:-.01em;margin:0 0 8px}
+  p{margin:0 0 16px;max-width:62ch}
+  .muted{color:var(--veles-grey-blue)}
+  code{font-family:ui-monospace,Consolas,monospace;font-size:.85em;background:rgba(231,233,237,.08);padding:1px 6px}
+  section{padding:120px 0}
+  section.light{background:var(--veles-near-white);color:var(--veles-black)}
+  section.light .muted{color:var(--veles-grey-mid)}
+  section.light code{background:rgba(22,6,6,.07)}
+  section.red{background:var(--veles-red);color:var(--veles-black)}
+  section.red .label:before{background:var(--veles-black)}
+  .grid{display:grid;gap:28px}
+  .g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+  @media (max-width:860px){.g3,.g4{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:560px){.g2,.g3,.g4{grid-template-columns:1fr}section{padding:80px 0}}
+
+  /* nav + progress */
+  .vx-progress{position:fixed;top:0;left:0;height:2px;width:100%;background:var(--veles-red);transform-origin:0 50%;transform:scaleX(0);z-index:50}
+  nav.top{position:sticky;top:0;z-index:40;background:rgba(22,6,6,.92);backdrop-filter:blur(6px);border-bottom:1px solid rgba(231,233,237,.08)}
+  nav.top .wrap{display:flex;gap:22px;align-items:center;height:56px;overflow-x:auto;white-space:nowrap;scrollbar-width:none}
+  nav.top a{text-decoration:none;font-weight:500;font-size:14px;color:var(--veles-grey-blue)}
+  nav.top a:hover{color:var(--veles-near-white)}
+  nav.top .brand{font-weight:600;letter-spacing:.12em;text-transform:uppercase;font-size:13px;color:var(--veles-near-white)}
+
+  /* hero */
+  .hero{min-height:92vh;display:flex;align-items:center;padding:80px 0}
+  .hero .wrap{display:grid;grid-template-columns:1.3fr .9fr;gap:48px;align-items:center;width:100%}
+  @media (max-width:860px){.hero .wrap{grid-template-columns:1fr}}
+  .hero h1{font-size:clamp(56px,10vw,150px);margin:22px 0 26px}
+  .hero h1 em{font-style:normal;color:var(--veles-red)}
+  .hero .lede{font-size:21px;color:var(--veles-grey-blue);max-width:42ch}
+  .hero img.logo{height:120px;width:auto;display:block;align-self:flex-start}
+  .btns{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px}
+  .btn{display:inline-flex;align-items:center;gap:14px;padding:16px 22px;font-weight:600;font-size:15px;text-decoration:none;border-radius:2px;border:1px solid transparent}
+  .btn:after{content:"\2192"}
+  .btn.red{background:var(--veles-red);color:var(--veles-black)}
+  .btn.line{border-color:rgba(231,233,237,.35)}
+  .pixel-slot{justify-self:center}
+
+  /* pull quote */
+  .pull{font-size:clamp(26px,3.4vw,42px);font-weight:800;line-height:1.15;letter-spacing:-.01em;max-width:28ch;margin:40px 0}
+
+  /* signs */
+  .sign-card{border-top:1px solid rgba(22,6,6,.18);padding-top:20px}
+  .sign-card svg{width:64px;height:64px;color:var(--veles-black);margin-bottom:14px}
+  .sign-card.lead svg{color:var(--veles-red)}
+  .sign-card p{font-size:16px}
+  .func{display:flex;flex-wrap:wrap;gap:28px;margin-top:20px}
+  .func div{display:flex;flex-direction:column;align-items:flex-start;gap:8px;font-weight:500;font-size:14px}
+  .func svg{width:40px;height:40px}
+  .amulet{display:grid;grid-template-columns:auto 1fr;gap:56px;align-items:center;margin-top:72px}
+  .amulet svg{height:320px;width:auto;color:var(--veles-black)}
+  .amulet .accent{stroke:var(--veles-red)}
+  @media (max-width:560px){.amulet{grid-template-columns:1fr}.amulet svg{height:240px}}
+
+  /* logo */
+  .logo-tile{aspect-ratio:4/3;display:grid;place-items:center}
+  .logo-tile img{width:34%;height:auto}
+  .logo-tile.k{background:var(--veles-black);outline:1px solid rgba(22,6,6,.2)}
+  .logo-tile.r{background:var(--veles-red)}
+  .logo-tile.w{background:#fff;outline:1px solid rgba(22,6,6,.12)}
+  .cap{font-size:14px;margin-top:10px}
+
+  /* colour */
+  .sw{min-height:180px;padding:18px;display:flex;flex-direction:column;justify-content:flex-end;font-size:14px;line-height:1.4}
+  .sw b{font-weight:800;font-size:18px}
+  .sw.big{min-height:260px}
+
+  /* type */
+  .spec{font-size:clamp(64px,11vw,160px);font-weight:800;line-height:.9;letter-spacing:-.03em;margin:10px 0 30px}
+  .weights{display:flex;flex-wrap:wrap;gap:34px;font-size:28px}
+
+  /* layouts */
+  .lay{aspect-ratio:3/4;position:relative;overflow:hidden;padding:22px;display:flex;flex-direction:column;justify-content:flex-end;gap:8px}
+  .lay h3{font-size:26px}
+  .lay.kadr{background:linear-gradient(0deg,rgba(22,6,6,.95),rgba(22,6,6,.2) 70%),repeating-linear-gradient(90deg,rgba(231,233,237,.06) 0 1px,transparent 1px 10px),var(--veles-panel)}
+  .lay.kadr .ph{position:absolute;top:20px;right:20px;font-weight:600;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--veles-grey-blue)}
+  .lay.gazeta{background:var(--veles-near-white);color:var(--veles-black);justify-content:flex-start;outline:1px solid rgba(22,6,6,.12)}
+  .lay.gazeta .mast{display:flex;justify-content:space-between;font-size:11px;font-weight:500;border-bottom:1px solid var(--veles-black);padding-bottom:8px;margin-bottom:auto}
+  .lay.gazeta .rule{width:40px;height:3px;background:var(--veles-red)}
+  .lay.gazeta svg{position:absolute;right:-30%;bottom:-8%;width:110%;color:var(--veles-grey);z-index:0}
+  .lay.gazeta>*{position:relative;z-index:1}
+  .lay.redl{background:var(--veles-red);color:var(--veles-black)}
+  .lay.redl svg{position:absolute;right:-28%;top:-18%;height:72%;color:var(--veles-black)}
+  .lay img{height:88px;width:auto;align-self:flex-start;margin-bottom:auto}
+  .lay.gazeta img{margin-bottom:0}
+
+  /* do / dont */
+  .dd li{margin-bottom:8px}
+  .dd{padding-left:20px;margin:0}
+
+  /* green teaser */
+  .teaser{display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center;border:1px solid rgba(231,233,237,.15);padding:28px}
+  .teaser .chip{width:96px;height:96px;background:#2f9e44;display:grid;place-items:center}
+  .teaser .chip img{width:56px}
+  @media (max-width:560px){.teaser{grid-template-columns:1fr}}
+
+  footer{padding:60px 0;color:var(--veles-grey-mid);font-size:14px;border-top:1px solid rgba(231,233,237,.08)}
+
+  /* reveal */
+  .vx-js .rv{opacity:0;transform:translateY(12px);transition:opacity 800ms var(--veles-motion-ease-standard),transform 800ms var(--veles-motion-ease-standard)}
+  .vx-js .rv.in{opacity:1;transform:none}
+  .draw path{stroke-dasharray:var(--len);stroke-dashoffset:var(--len);transition:stroke-dashoffset 1200ms var(--veles-motion-ease-draw)}
+  .draw.in path,.no-io .draw path{stroke-dashoffset:0}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.vx-js .rv{opacity:1;transform:none;transition:none}.draw path{transition:none;stroke-dashoffset:0}}
+  svg.s path{fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:square;stroke-linejoin:miter}
+</style>
+</head>
+<body>
+<div class="vx-progress" aria-hidden="true"></div>
+<nav class="top" aria-label="Sections"><div class="wrap">
+  <a class="brand" href="#top">Veles Brand 3.2</a>
+  <a href="#why">Why Veles</a><a href="#values">Values</a><a href="#pixel">Pixel sign</a><a href="#logo">Logo</a><a href="#colour">Colour</a><a href="#type">Type</a><a href="#layouts">Layouts</a><a href="#motion">Motion</a><a href="#install">Install</a><a href="#systems">Systems</a>
+</div></nav>
+
+<header class="hero" id="top"><div class="wrap">
+  <div>
+    <img class="logo" src="skills/veles-brand/assets/logo/Logo_red.png" alt="Veles">
+    <div style="margin-top:56px"><span class="label">Brand Book 3.2 · November 2026</span></div>
+    <h1>The new <em>Veles</em>.</h1>
+    <p class="lede">One language for everything Veles Productions makes — films, offers, the website, banners and the work of our AI agents.</p>
+    <div class="btns">
+      <a class="btn red" href="#install">Install in your agent</a>
+      <a class="btn line" href="https://github.com/veles-productions/veles-brand/archive/refs/heads/main.zip">Download the kit</a>
+    </div>
+  </div>
+  <div class="pixel-slot">
+    <div class="vx-pixel" data-size="200" aria-label="Veles signs">
+      <div class="vx-pixel-wall" role="img" aria-label="Courage"></div>
+      <div class="vx-pixel-rail" role="tablist"></div>
+    </div>
+  </div>
+</div></header>
+
+<section class="light" id="why"><div class="wrap">
+  <span class="label rv">01 · Why Veles</span>
+  <h2 class="rv">An old god, waking up.</h2>
+  <div class="grid g2">
+    <div class="rv">
+      <p>Veles is one of the oldest Slavic gods — of the earth, the waters and the world below, of cattle and wealth, of magic and of poets. We took his name on purpose.</p>
+      <p>Everything we make is built with the newest tools — LED volumes, real-time engines, AI — and carries a root much older than us: the visual culture of Central Europe and the Slavic Balkans.</p>
+    </div>
+    <div class="rv">
+      <p>We show that root with <b>geometry and motion</b>, never with fake age. No parchment, no sepia, no wear.</p>
+      <p class="muted">Our circle: Poland, Slovakia, Czechia, Ukraine, Croatia, Bulgaria and their neighbours. Nordic runes and Viking styling are not part of it.</p>
+    </div>
+  </div>
+  <p class="pull rv">An older name. A newer technology than anything around today.</p>
+  <p class="muted rv">Shaping Digital Worlds for Human Future.</p>
+</div></section>
+
+<section class="light" id="values" style="padding-top:0"><div class="wrap">
+  <span class="label rv">02 · Values</span>
+  <h2 class="rv">Six signs.</h2>
+  <p class="rv">We named our values with signs of our own, constructed on the rules of angular Glagolitic — the script of the Baška tablet, Croatia, around 1100. They are not a historical alphabet; they are craft and intention.</p>
+  <div class="grid g3" style="margin-top:44px" id="signs"></div>
+  <h3 style="margin-top:72px" class="rv">Functional signs — instead of emoji.</h3>
+  <div class="func rv" id="func"></div>
+  <div class="amulet">
+    <svg viewBox="-8 0 136 322" class="s rv" aria-label="Amulet of Veles" role="img">
+      <path d="M60 4 L68 12 L60 20 L52 12 Z M60 20 V34 M60 98 V104 M60 104 L68 112 L60 120 L52 112 Z M60 120 V126 M60 190 V196 M60 196 L68 204 L60 212 L52 204 Z M60 212 V218 M60 282 V290"/>
+      <path class="accent" d="M60 290 L74 304 L60 318 L46 304 Z M60 296 V312 M53 304 H67"/>
+      <g transform="translate(-4 36)"><path class="accent" d="M30 56 V20 M8 44 V38 H52 V44 M18 20 L30 6 L42 20 Z"/></g>
+      <g transform="translate(64 36)"><path d="M12 8 H48 M22 8 V24 H38 V8 M30 24 V54 M22 54 H38"/></g>
+      <g transform="translate(-4 128)"><path d="M16 8 H36 V28 H16 Z M24 20 H44 V40 H24 Z M34 40 V54 M26 54 H42"/></g>
+      <g transform="translate(64 128)"><path d="M14 10 V32 H46 V10 M25 16 H35 V26 H25 Z M30 32 V54 M22 54 H38"/></g>
+      <g transform="translate(-4 220)"><path d="M30 4 V10 M14 10 H46 L30 26 Z M30 26 V30 M18 30 H42 L30 42 Z M30 42 V56"/></g>
+      <g transform="translate(64 220)"><path d="M18 6 H42 V30 H18 Z M22 10 L38 26 M38 10 L22 26 M30 30 V54 M22 54 H38"/></g>
+    </svg>
+    <div class="rv">
+      <h3>The amulet of Veles.</h3>
+      <p>Three tiers — courage + power, connections + creativity, passion + integrity — joined by diamonds on one axis, with a seal at the base. Once per document, on the cover or the last page.</p>
+      <h3 style="margin-top:32px">Rarity is the rule.</h3>
+      <p>Never a sign at every heading. A value sign once per document, two or three functional signs per page at most. Only courage may be red. Never next to the logo, never as a logo.</p>
+    </div>
+  </div>
+</div></section>
+
+<section id="pixel"><div class="wrap">
+  <span class="label rv">03 · Graphic element</span>
+  <h2 class="rv">The pixel sign.</h2>
+  <div class="grid g2">
+    <div class="rv"><p>Each value sign is drawn by hand on a 15×15 grid, like a cross-stitch pattern, and lit like pixels on the LED wall we shoot on — folk embroidery and Veles technology in one element.</p>
+    <p>On screens it flips its tiles in a wave from the centre and moves to the next sign every 3.6 seconds; the rail lets you choose one. It lives only in a website hero or an app start screen, at most about 200 px.</p></div>
+    <div class="rv"><p class="muted">In print: one small static pixel sign as a signature, about 11 mm. Never page-size, never a pattern, never more than one live grid per screen. In text documents use the line sign.</p>
+    <p class="muted">Snippet: <code>embeds/pixel-sign-hero.html</code></p></div>
+  </div>
+</div></section>
+
+<section class="light" id="logo"><div class="wrap">
+  <span class="label rv">04 · Logo</span>
+  <h2 class="rv">Three combinations. No more.</h2>
+  <div class="grid g3 rv">
+    <div><div class="logo-tile k"><img src="skills/veles-brand/assets/logo/Logo_red.png" alt="Red Veles logo on Veles black"></div><div class="cap">Red on Veles black</div></div>
+    <div><div class="logo-tile r"><img src="skills/veles-brand/assets/logo/Logo_black.png" alt="Black Veles logo on red"></div><div class="cap">Black on red</div></div>
+    <div><div class="logo-tile w"><img src="skills/veles-brand/assets/logo/Logo_black.png" alt="Black Veles logo on white"></div><div class="cap">Black on white</div></div>
+  </div>
+  <div class="grid g2" style="margin-top:48px">
+    <div class="rv"><h3>Size.</h3><p>The lockup is vertical — the wordmark is about 15 % of its height. Minimum <b>88 px</b> on screen, <b>16 mm</b> in print headers, <b>32 mm</b> on covers. No logo in footers: write <i>Veles Productions</i> in text.</p></div>
+    <div class="rv"><h3>Never.</h3><p>Crop, recolour, stretch, rotate or rearrange it. Put it on a photo or a busy pattern. Add a full stop after VELES.</p></div>
+  </div>
+</div></section>
+
+<section id="colour"><div class="wrap">
+  <span class="label rv">05 · Colour</span>
+  <h2 class="rv">Black, white, one red.</h2>
+  <div class="grid g3 rv">
+    <div class="sw big" style="background:#160606;outline:1px solid rgba(231,233,237,.2)"><b>Veles black</b>#160606 · warm, reddish. Replaces #000000.</div>
+    <div class="sw big" style="background:#ef3e46;color:#160606"><b>Veles red</b>#ef3e46 · the only red. An accent.</div>
+    <div class="sw big" style="background:#cdd1da;color:#160606"><b>Grey</b>#cdd1da · foundational.</div>
+  </div>
+  <div class="grid g4 rv" style="margin-top:28px">
+    <div class="sw" style="background:#231f20"><b>Panel</b>#231f20</div>
+    <div class="sw" style="background:#817f7e;color:#160606"><b>Mid grey</b>#817f7e</div>
+    <div class="sw" style="background:#aab2bd;color:#160606"><b>Grey blue</b>#aab2bd</div>
+    <div class="sw" style="background:#e7e9ed;color:#160606"><b>Near white</b>#e7e9ed</div>
+  </div>
+  <p class="muted rv" style="margin-top:28px">The palette is closed — any other hex is a mistake. Shades only as rgba() of these colours. Never #000000; never the old reds #c8313a, #e0233a, #dd0000, #bc3138.</p>
+</div></section>
+
+<section class="light" id="type"><div class="wrap">
+  <span class="label rv">06 · Type</span>
+  <h2 class="rv">Manrope, for now.</h2>
+  <div class="spec rv">Aa Ąę 2026.</div>
+  <div class="weights rv"><span style="font-weight:800">ExtraBold 800</span><span style="font-weight:600">SemiBold 600</span><span style="font-weight:500">Medium 500</span><span style="font-weight:400">Regular 400</span><span style="font-weight:300">Light 300</span></div>
+  <div class="grid g2" style="margin-top:44px">
+    <div class="rv"><p>The brand font is <b>Alliance No.2</b>; its licence is being clarified. Until then every material uses <b>Manrope</b> — free on Google Fonts, files in <code>skills/veles-brand/assets/fonts/</code>. Headlines 800, text 300.</p></div>
+    <div class="rv"><p>Display headlines in sentence case end with a full stop: <i>Our brand.</i> <i>Stories + Systems.</i> BR Hendrix and Arial are retired.</p></div>
+  </div>
+</div></section>
+
+<section id="layouts"><div class="wrap">
+  <span class="label rv">07 · Layouts</span>
+  <h2 class="rv">Photo or typography. Never a pattern.</h2>
+  <div class="grid g3 rv">
+    <div class="lay kadr"><span class="ph">Veles set photo</span><img src="skills/veles-brand/assets/logo/Logo_red.png" alt=""><span class="label">Kadr</span><h3>Offers, decks, banners.</h3><p class="muted" style="font-size:15px">A real photo from a Veles set carries the cover. Gradient from Veles black, red logo, small pixel sign.</p></div>
+    <div class="lay gazeta"><div class="mast"><span>VELES PRODUCTIONS</span><span>REPORT · 11/2026</span></div><svg viewBox="0 0 60 60" class="s"><path d="M30 56 V20 M8 44 V38 H52 V44 M18 20 L30 6 L42 20 Z" style="stroke-width:.4"/></svg><div class="rule"></div><span class="label" style="color:#160606">Gazeta</span><h3>Reports, letters, official documents.</h3><p style="font-size:15px;color:#817f7e">Light paper, columns, thin lines. The courage sign as a barely visible hairline.</p></div>
+    <div class="lay redl"><svg viewBox="0 0 60 60" class="s"><path d="M30 56 V20 M8 44 V38 H52 V44 M18 20 L30 6 L42 20 Z" style="stroke-width:1.2"/></svg><img src="skills/veles-brand/assets/logo/Logo_black.png" alt=""><span class="label">Red</span><h3>Banners and section breaks.</h3><p style="font-size:15px">Full Veles red, black logo, black type.</p></div>
+  </div>
+  <p class="muted rv" style="margin-top:28px">Banner generator with all four social sizes: <code>banners/banner.html</code>. Sharp corners (UI ≤ 4 px), angles 0°/45°/90°, lots of space. No gradients except photo darkening, no glow, no textures.</p>
+</div></section>
+
+<section class="light" id="motion"><div class="wrap">
+  <span class="label rv">08 · Motion</span>
+  <h2 class="rv">Ancient technology, waking up.</h2>
+  <div class="grid g4 rv">
+    <div><svg viewBox="0 0 60 60" class="s draw" style="width:56px;height:56px"><path d="M30 8 L44 22 L30 36 L16 22 Z M12 50 H48"/></svg><h3 style="margin-top:12px">Reveal.</h3><p style="font-size:16px">Content rises 12 px and fades in once.</p></div>
+    <div><svg viewBox="0 0 60 60" class="s draw" style="width:56px;height:56px;color:#ef3e46"><path d="M30 56 V20 M8 44 V38 H52 V44 M18 20 L30 6 L42 20 Z"/></svg><h3 style="margin-top:12px">Sign draw.</h3><p style="font-size:16px">A line sign draws itself, 1200 ms.</p></div>
+    <div><svg viewBox="0 0 60 60" class="s draw" style="width:56px;height:56px"><path d="M12 54 H24 V42 H36 V30 H48 V14"/></svg><h3 style="margin-top:12px">Section wipe.</h3><p style="font-size:16px">Light and dark sections cross over, 400 ms.</p></div>
+    <div><svg viewBox="0 0 60 60" class="s draw" style="width:56px;height:56px"><path d="M30 6 L52 28 L30 50 L8 28 Z M30 16 L42 28 L30 40 L18 28 Z M30 22 V34 M24 28 H36"/></svg><h3 style="margin-top:12px">Progress.</h3><p style="font-size:16px">A thin red line on long pages.</p></div>
+  </div>
+  <p class="rv" style="margin-top:32px">Easing <code>cubic-bezier(0.2, 0, 0, 1)</code>, 200 / 400 / 800 / 1200 ms. <b>prefers-reduced-motion is mandatory</b> — everything stays visible without motion. Ready snippets in <code>embeds/</code>, made to paste into a Webflow Code Embed.</p>
+</div></section>
+
+<section class="red" id="install"><div class="wrap">
+  <span class="label rv">09 · For everyone</span>
+  <h2 class="rv">Install it in your agent.</h2>
+  <div class="grid g2">
+    <div class="rv"><p>Claude Code, Gemini CLI or Cursor: open your agent, paste the prompt from <code style="background:rgba(22,6,6,.1)">INSTALL-PROMPT.md</code>, press Enter. It downloads this kit, connects it to its instructions and removes the old Veles rules. No GitHub account needed.</p>
+    <p>Then ask it: <i>"What are the Veles brand colours?"</i></p></div>
+    <div class="rv"><div class="btns" style="margin-top:0">
+      <a class="btn" style="background:#160606;color:#e7e9ed" href="https://github.com/veles-productions/veles-brand/blob/main/INSTALL-PROMPT.md">Open the prompt</a>
+      <a class="btn" style="border-color:#160606" href="https://github.com/veles-productions/veles-brand/blob/main/QUICK-GUIDE.md">Quick guide</a>
+    </div></div>
+  </div>
+</div></section>
+
+<section id="systems"><div class="wrap">
+  <span class="label rv">10 · Sister brand</span>
+  <h2 class="rv">Veles Systems. Coming.</h2>
+  <div class="teaser rv">
+    <div class="chip"><img src="skills/veles-brand/assets/logo/Logo_black.png" alt=""></div>
+    <div><p>The same language with one difference: a paper-cut green accent <b>#2f9e44</b> instead of red, a black logo only and no white screens. Its brand book is <b>not finished</b> — on the Productions site use only a small green hint where Systems is mentioned.</p></div>
+  </div>
+</div></section>
+
+<footer><div class="wrap">Veles Productions · Warsaw · Brand Book 3.2 · November 2026 · Manrope by Mikhail Sharanda, SIL Open Font License · Logo and signs © Veles Productions — not for use by third parties.</div></footer>
+
+<script>
+(function(){
+  var V={
+    courage:["Courage","M30 56 V20 M8 44 V38 H52 V44 M18 20 L30 6 L42 20 Z","Closed arrowhead over a threshold — the only sign pointing up. The leading sign, the only one that may be red."],
+    power:["Power","M12 8 H48 M22 8 V24 H38 V8 M30 24 V54 M22 54 H38","A gate standing on one stem and a firm foot."],
+    connections:["Connections","M16 8 H36 V28 H16 Z M24 20 H44 V40 H24 Z M34 40 V54 M26 54 H42","Two squares holding each other."],
+    passion:["Passion","M30 4 V10 M14 10 H46 L30 26 Z M30 26 V30 M18 30 H42 L30 42 Z M30 42 V56","Two triangles, one above the other, threaded on one axis."],
+    creativity:["Creativity","M14 10 V32 H46 V10 M25 16 H35 V26 H25 Z M30 32 V54 M22 54 H38","A seed held in an open vessel."],
+    integrity:["Integrity","M18 6 H42 V30 H18 Z M22 10 L38 26 M38 10 L22 26 M30 30 V54 M22 54 H38","A square crossed corner to corner — closed on every side."]
+  };
+  var F=[["Chapter","M30 8 L44 22 L30 36 L16 22 Z M12 50 H48"],["Insight","M18 12 H12 V48 H18 M42 12 H48 V48 H42 M27 27 H33 V33 H27 Z"],["Risk","M30 6 V18 M30 26 V38 M30 46 V54 M22 54 H38"],["Decision","M30 54 V32 M30 32 L16 18 V8 M30 32 L44 18 V8 M22 54 H38"],["Plan","M12 54 H24 V42 H36 V30 H48 V14"],["Seal","M30 6 L52 28 L30 50 L8 28 Z M30 16 L42 28 L30 40 L18 28 Z M30 22 V34 M24 28 H36"]];
+  var sh="";Object.keys(V).forEach(function(k){var v=V[k];sh+='<div class="sign-card rv'+(k==="courage"?" lead":"")+'"><svg viewBox="0 0 60 60" class="s draw"><path d="'+v[1]+'"/></svg><h3>'+v[0]+'.</h3><p>'+v[2]+'</p></div>'});
+  document.getElementById("signs").innerHTML=sh;
+  document.getElementById("func").innerHTML=F.map(function(f){return '<div><svg viewBox="0 0 60 60" class="s"><path d="'+f[1]+'"/></svg>'+f[0]+'</div>'}).join("");
+
+  var reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  document.querySelectorAll(".draw path").forEach(function(p){p.parentNode.style.setProperty("--len",Math.ceil(p.getTotalLength()))});
+  var bar=document.querySelector(".vx-progress");
+  function sc(){var h=document.documentElement,m=h.scrollHeight-h.clientHeight;bar.style.transform="scaleX("+(m>0?h.scrollTop/m:0)+")"}
+  addEventListener("scroll",sc,{passive:true});sc();
+  if("IntersectionObserver" in window){
+    document.documentElement.classList.add("vx-js");
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}})},{threshold:.15});
+    document.querySelectorAll(".rv,.draw").forEach(function(el){io.observe(el)});
+  } else document.documentElement.classList.add("no-io");
+
+  /* pixel sign (same code as embeds/pixel-sign-hero.html) */
+  var G={courage:["...............",".......#.......","......#.#......",".....#...#.....","....#######....",".......#.......",".......#.......",".......#.......",".#############.",".#.....#.....#.",".......#.......",".......#.......",".......#.......",".......#.......","..............."],power:["...............","..###########..",".....#...#.....",".....#...#.....",".....#####.....",".......#.......",".......#.......",".......#.......",".......#.......",".......#.......",".......#.......",".......#.......",".......#.......",".....#####.....","..............."],connections:["...............","....#####......","....#...#......","....#.#####....","....#.#.#.#....","....#####.#....","......#...#....","......#####....","........#......","........#......","........#......","........#......","........#......","......#####....","..............."],creativity:["...............","...............","...#.......#...","...#..###..#...","...#..#.#..#...","...#..###..#...","...#########...",".......#.......",".......#.......",".......#.......",".......#.......",".......#.......",".......#.......",".....#####.....","..............."],passion:[".......#.......","...#########...","....#.....#....",".....#...#.....","......#.#......",".......#.......",".......#.......","....#######....",".....#...#.....","......#.#......",".......#.......",".......#.......",".......#.......",".......#.......","..............."],integrity:["...............","....#######....","....##...##....","....#.#.#.#....","....#..#..#....","....#.#.#.#....","....##...##....","....#######....",".......#.......",".......#.......",".......#.......",".......#.......",".......#.......",".....#####.....","..............."]};
+  var ORDER=["courage","power","connections","creativity","passion","integrity"];
+  var root=document.querySelector(".vx-pixel"),wall=root.querySelector(".vx-pixel-wall"),rail=root.querySelector(".vx-pixel-rail");
+  var size=+root.dataset.size;wall.style.setProperty("--vx-size",size+"px");wall.style.setProperty("--vx-gap",Math.max(1,Math.round(size/100))+"px");
+  var tiles=[],step=[],btns={},cur=null,timer=null;
+  for(var r=0;r<15;r++)for(var c=0;c<15;c++){var t=document.createElement("div");t.className="vx-px";t.innerHTML="<i></i><i></i>";t.style.transitionDelay=Math.round(Math.sqrt((r-7)*(r-7)+(c-7)*(c-7))*140)+"ms";wall.appendChild(t);tiles.push(t);step.push(0)}
+  ORDER.forEach(function(k){var b=document.createElement("button");b.type="button";b.dataset.sign=k;b.setAttribute("role","tab");b.setAttribute("aria-label",V[k][0]);b.innerHTML='<svg viewBox="0 0 60 60" aria-hidden="true"><path d="'+V[k][1]+'" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="square" stroke-linejoin="miter"/></svg>';b.onclick=function(){if(timer){clearInterval(timer);timer=null}show(k)};rail.appendChild(b);btns[k]=b});
+  function show(k){if(k===cur)return;var g=G[k],on=k==="courage"?"var(--vx-red)":"var(--vx-lit)";tiles.forEach(function(t,i){var col=g[Math.floor(i/15)].charAt(i%15)==="#"?on:"var(--vx-off)";if(cur===null){t.children[0].style.background=col;return}t.children[(step[i]+1)%2].style.background=col;step[i]++;t.style.transform="rotateY("+(step[i]*180)+"deg)"});cur=k;wall.setAttribute("aria-label",V[k][0]);ORDER.forEach(function(o){btns[o].setAttribute("aria-selected",o===k)})}
+  show("courage");
+  if(!reduce){var n=0;timer=setInterval(function(){n=(n+1)%6;show(ORDER[n])},3600)}
+})();
+</script>
+<style>
+.vx-pixel{--vx-red:#ef3e46;--vx-lit:#e7e9ed;--vx-off:rgba(231,233,237,.07);display:inline-flex;flex-direction:column;gap:18px}
+.vx-pixel-wall{display:grid;grid-template-columns:repeat(15,1fr);gap:var(--vx-gap,2px);width:var(--vx-size,200px);aspect-ratio:1;perspective:900px}
+.vx-px{position:relative;transform-style:preserve-3d;transition:transform 1100ms cubic-bezier(.7,-.25,.25,1.3)}
+.vx-px>i{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--vx-off)}
+.vx-px>i+i{transform:rotateY(180deg)}
+.vx-pixel-rail{display:flex;gap:6px}
+.vx-pixel-rail button{all:unset;cursor:pointer;width:30px;height:30px;display:grid;place-items:center;color:#817f7e;border:1px solid transparent}
+.vx-pixel-rail button:hover,.vx-pixel-rail button:focus-visible{color:#e7e9ed}
+.vx-pixel-rail button[aria-selected="true"]{color:#e7e9ed;border-color:rgba(231,233,237,.25)}
+.vx-pixel-rail button[data-sign="courage"][aria-selected="true"]{color:#ef3e46}
+.vx-pixel-rail svg{width:20px;height:20px}
+@media (prefers-reduced-motion:reduce){.vx-px{transition:none}}
+</style>
+</body>
+</html>

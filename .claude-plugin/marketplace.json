@@ -1,0 +1,17 @@
+{
+  "name": "veles",
+  "owner": { "name": "Veles Productions", "url": "https://velesproductions.com" },
+  "metadata": {
+    "description": "Marketplace pluginów Veles Productions.",
+    "version": "1.4.0"
+  },
+  "plugins": [
+    {
+      "name": "veles-brand",
+      "source": "./",
+      "description": "Veles Brand & Design System — skill + komenda + tokeny + assety + szablony + HTML→PDF.",
+      "version": "1.4.0",
+      "keywords": ["brand", "design-system", "html", "pdf"]
+    }
+  ]
+}

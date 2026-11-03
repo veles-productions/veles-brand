@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Veles sign draw — embed</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;600;800&display=swap" rel="stylesheet">
+<style>
+  html,body{margin:0;background:#160606;color:#e7e9ed;font-family:'Alliance No.2',Manrope,sans-serif}
+  .demo{padding:12vh 6vw 40vh;display:grid;gap:30vh}
+  .demo section{display:flex;align-items:center;gap:28px}
+  .demo h2{font-weight:800;font-size:clamp(32px,5vw,64px);margin:0;letter-spacing:-.01em}
+  .demo .light{background:#e7e9ed;color:#160606;padding:60px 6vw;margin:0 -6vw}
+  .demo p{font-weight:300;color:#aab2bd;max-width:52ch;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="demo">
+  <p>Scroll. Each sign draws itself once when it enters the screen. Use one sign per section, not at every heading.</p>
+  <section>
+<!-- ============ VELES EMBED START — one sign. Change data-sign; paste into a Webflow Code Embed ============ -->
+<span class="vx-sign" data-sign="courage" data-px="56" role="img" aria-label="Courage"></span>
+<style>
+.vx-sign{display:inline-block;line-height:0;color:inherit}
+.vx-sign svg{width:var(--vx-px,56px);height:var(--vx-px,56px);overflow:visible}
+.vx-sign path{fill:none;stroke:currentColor;stroke-linecap:square;stroke-linejoin:miter}
+.vx-sign[data-sign="courage"]{color:#ef3e46}
+.vx-js .vx-sign path{stroke-dasharray:var(--vx-len);stroke-dashoffset:var(--vx-len);transition:stroke-dashoffset 1200ms cubic-bezier(.16,1,.3,1)}
+.vx-js .vx-sign.is-drawn path{stroke-dashoffset:0}
+@media (prefers-reduced-motion:reduce){.vx-js .vx-sign path{transition:none;stroke-dashoffset:0}}
+</style>
+<script>
+(function(){
+  var P={
+    courage:"M30 56 V20 M8 44 V38 H52 V44 M18 20 L30 6 L42 20 Z",
+    power:"M12 8 H48 M22 8 V24 H38 V8 M30 24 V54 M22 54 H38",
+    connections:"M16 8 H36 V28 H16 Z M24 20 H44 V40 H24 Z M34 40 V54 M26 54 H42",
+    passion:"M30 4 V10 M14 10 H46 L30 26 Z M30 26 V30 M18 30 H42 L30 42 Z M30 42 V56",
+    creativity:"M14 10 V32 H46 V10 M25 16 H35 V26 H25 Z M30 32 V54 M22 54 H38",
+    integrity:"M18 6 H42 V30 H18 Z M22 10 L38 26 M38 10 L22 26 M30 30 V54 M22 54 H38",
+    chapter:"M30 8 L44 22 L30 36 L16 22 Z M12 50 H48",
+    insight:"M18 12 H12 V48 H18 M42 12 H48 V48 H42 M27 27 H33 V33 H27 Z",
+    risk:"M30 6 V18 M30 26 V38 M30 46 V54 M22 54 H38",
+    decision:"M30 54 V32 M30 32 L16 18 V8 M30 32 L44 18 V8 M22 54 H38",
+    plan:"M12 54 H24 V42 H36 V30 H48 V14",
+    seal:"M30 6 L52 28 L30 50 L8 28 Z M30 16 L42 28 L30 40 L18 28 Z M30 22 V34 M24 28 H36"
+  };
+  document.documentElement.classList.add("vx-js");
+  var io="IntersectionObserver" in window?new IntersectionObserver(function(es){
+    es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("is-drawn");io.unobserve(e.target)}});
+  },{threshold:.4}):null;
+  document.querySelectorAll(".vx-sign:not([data-ready])").forEach(function(el){
+    el.dataset.ready="1";
+    var d=P[el.dataset.sign]||P.courage,px=parseInt(el.dataset.px||"56",10);
+    el.style.setProperty("--vx-px",px+"px");
+    el.innerHTML='<svg viewBox="0 0 60 60" aria-hidden="true"><path d="'+d+'" stroke-width="'+(px<=32?5:3)+'"/></svg>';
+    var p=el.querySelector("path"),len=Math.ceil(p.getTotalLength());
+    el.style.setProperty("--vx-len",len);
+    if(io)io.observe(el);else el.classList.add("is-drawn");
+  });
+})();
+</script>
+<!-- ============ VELES EMBED END ============ -->
+    <h2>Courage.</h2>
+  </section>
+  <section><span class="vx-sign" data-sign="chapter" data-px="56" role="img" aria-label="Chapter"></span><h2>Our work.</h2></section>
+  <section class="light"><span class="vx-sign" data-sign="connections" data-px="56" role="img" aria-label="Connections"></span><h2>People.</h2></section>
+  <script>/* demo: re-run the embed script for the extra signs */document.querySelectorAll('script').forEach(function(s){if(s.textContent.indexOf('vx-sign:not')>0){var n=document.createElement('script');n.textContent=s.textContent;document.body.appendChild(n)}})</script>
+  <p>Signs available: courage, power, connections, passion, creativity, integrity (values) and
+  chapter, insight, risk, decision, plan, seal (functional). The sign takes the text colour of
+  its section; only courage is red.</p>
+</div>
+</body>
+</html>

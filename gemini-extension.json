@@ -1,0 +1,6 @@
+{
+  "name": "veles-brand",
+  "version": "1.4.0",
+  "description": "Veles Productions Brand & Design System dla Gemini CLI — materiały w brandzie (deck/onepager/raport/dokument/email) jako self-contained HTML.",
+  "contextFileName": "GEMINI.md"
+}

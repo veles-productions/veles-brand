@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Veles banner — Kadr and Red</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{--black:#160606;--red:#ef3e46;--nw:#e7e9ed;--gb:#aab2bd;--panel:#231f20}
+  html,body{margin:0;background:#231f20;color:var(--nw);font-family:'Alliance No.2',Manrope,sans-serif}
+  .tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:16px 20px;position:sticky;top:0;background:var(--panel);z-index:5;border-bottom:1px solid rgba(231,233,237,.12)}
+  .tools b{font-weight:600;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--gb);margin-right:4px}
+  .tools button{all:unset;cursor:pointer;font-weight:600;font-size:13px;padding:8px 12px;border:1px solid rgba(231,233,237,.25);color:var(--nw)}
+  .tools button[aria-pressed="true"]{background:var(--nw);color:var(--black);border-color:var(--nw)}
+  .tools .sep{width:16px}
+  .tools input{font:300 13px Manrope,sans-serif;background:transparent;border:1px solid rgba(231,233,237,.25);color:var(--nw);padding:8px 10px;min-width:260px}
+  .help{padding:10px 20px;font-weight:300;font-size:13px;color:var(--gb);line-height:1.5}
+  .stage{padding:24px 20px 60px;overflow:auto}
+
+  /* ---------- the banner ---------- */
+  .bn{position:relative;overflow:hidden;width:var(--w);height:var(--h);--u:calc(min(var(--w),var(--h))/100);background:var(--black);color:var(--nw);transform-origin:0 0}
+  .bn .photo{position:absolute;inset:0;background:var(--panel) center/cover no-repeat}
+  .bn .photo.empty{display:grid;place-items:center;background:repeating-linear-gradient(0deg,rgba(231,233,237,.05) 0 1px,transparent 1px 8px),var(--panel)}
+  .bn .photo.empty span{font-weight:600;font-size:calc(var(--u)*2.6);letter-spacing:.12em;text-transform:uppercase;color:var(--gb);transform:translateX(18%)}
+  .bn .shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(22,6,6,.94) 0%,rgba(22,6,6,.82) 32%,rgba(22,6,6,0) 72%)}
+  .bn .copy{position:absolute;left:calc(var(--u)*7);right:40%;bottom:calc(var(--u)*7);display:flex;flex-direction:column;gap:calc(var(--u)*2.4)}
+  .bn .logo{position:absolute;left:calc(var(--u)*7);top:calc(var(--u)*7);height:max(88px,calc(var(--u)*17));width:auto;align-self:flex-start}
+  .bn .label{display:flex;align-items:center;gap:calc(var(--u)*1.4);font-weight:600;font-size:max(12px,calc(var(--u)*2.4));letter-spacing:.12em;text-transform:uppercase}
+  .bn .label:before{content:"";width:calc(var(--u)*1.5);height:calc(var(--u)*1.5);background:var(--red);flex:none}
+  .bn h1{margin:0;font-weight:800;font-size:calc(var(--u)*var(--fs,9.5));line-height:.98;letter-spacing:-.02em;outline:none}
+  .bn .url{font-weight:300;font-size:max(12px,calc(var(--u)*2.2));color:var(--gb)}
+  .bn .px{position:absolute;right:calc(var(--u)*5);bottom:calc(var(--u)*5);width:calc(var(--u)*7);height:calc(var(--u)*7)}
+
+  /* Red layout */
+  .bn.red{background:var(--red);color:var(--black)}
+  .bn.red .photo,.bn.red .shade,.bn.red .px{display:none}
+  .bn.red .label:before{background:var(--black)}
+  .bn.red .url{color:var(--black);opacity:.7}
+  .bn.red .copy{right:44%}
+  .bn.red .sign{display:block}
+  .bn .sign{display:none;position:absolute;height:130%;top:-6%;right:-14%;aspect-ratio:1;color:var(--black)}
+  .bn .sign path{fill:none;stroke:currentColor;stroke-width:.7;stroke-linecap:square;stroke-linejoin:miter}
+
+  /* wide cover (1584x396): text row */
+  .bn.wide .copy{right:42%;bottom:auto;top:50%;transform:translateY(-50%);left:calc(var(--u)*34)}
+  .bn.wide .logo{top:50%;transform:translateY(-50%)}
+  /* story (1080x1920) */
+  .bn.tall .copy{right:calc(var(--u)*7)}
+  .bn.tall .shade{background:linear-gradient(0deg,rgba(22,6,6,.95) 0%,rgba(22,6,6,.8) 38%,rgba(22,6,6,0) 70%)}
+  .bn.tall .sign{height:auto;width:120%;top:auto;bottom:-10%;right:-50%}
+  .bn.red.tall .copy{right:calc(var(--u)*7)}
+</style>
+</head>
+<body>
+<div class="tools">
+  <b>Layout</b><button data-layout="kadr" aria-pressed="true">Kadr — photo</button><button data-layout="red">Red</button>
+  <span class="sep"></span>
+  <b>Size</b><button data-size="1200x627" aria-pressed="true">LinkedIn post</button><button data-size="1080x1080">Square</button><button data-size="1584x396">LinkedIn cover</button><button data-size="1080x1920">Story</button>
+  <span class="sep"></span>
+  <input id="photo" placeholder="Photo URL (a real Veles set photo)">
+</div>
+<div class="help">Click the headline and the label to edit them. The banner below is shown at its exact pixel size — capture it with any screenshot tool, or in Chrome: right-click the banner → Inspect → right-click the highlighted <code>div.bn</code> → <em>Capture node screenshot</em>. Photos: real Veles sets from Media Lab only; faces approved before publishing. The Red layout is a proposal pending Artur's approval.</div>
+<div class="stage">
+  <div class="bn" id="bn">
+    <div class="photo empty" id="ph"><span>Veles set photo</span></div>
+    <div class="shade"></div>
+    <img class="logo" id="logo" src="../skills/veles-brand/assets/logo/Logo_red.png" alt="Veles">
+    <svg class="sign" viewBox="0 0 60 60" aria-hidden="true"><path d="M30 56 V20 M8 44 V38 H52 V44 M18 20 L30 6 L42 20 Z"/></svg>
+    <div class="copy">
+      <div class="label" contenteditable="true" spellcheck="false">Virtual production</div>
+      <h1 contenteditable="true" spellcheck="false">Stories + Systems.</h1>
+      <div class="url">velesproductions.com</div>
+    </div>
+    <svg class="px" id="px" viewBox="0 0 104 104" aria-hidden="true"></svg>
+  </div>
+</div>
+<script>
+(function(){
+  var bn=document.getElementById("bn"),logo=document.getElementById("logo"),ph=document.getElementById("ph");
+  var g=["...............",".......#.......","......#.#......",".....#...#.....","....#######....",".......#.......",".......#.......",".......#.......",".#############.",".#.....#.....#.",".......#.......",".......#.......",".......#.......",".......#.......","..............."];
+  var s="";for(var r=0;r<15;r++)for(var c=0;c<15;c++){var on=g[r][c]==="#";s+='<rect x="'+(c*7)+'" y="'+(r*7)+'" width="6" height="6" fill="'+(on?"#ef3e46":"rgba(231,233,237,.07)")+'"/>'}
+  document.getElementById("px").innerHTML=s;
+  var q=new URLSearchParams(location.search),state={layout:q.get("layout")||"kadr",size:q.get("size")||"1200x627"};
+  function apply(){
+    var wh=state.size.split("x"),w=+wh[0],h=+wh[1];
+    bn.style.setProperty("--w",w+"px");bn.style.setProperty("--h",h+"px");
+    bn.classList.toggle("red",state.layout==="red");
+    bn.classList.toggle("wide",w/h>3);bn.classList.toggle("tall",h/w>1.5);
+    bn.style.setProperty("--fs",w/h>3?13:(h/w>1.5?11:(w===h?10:9.5)));
+    logo.src=state.layout==="red"?"../skills/veles-brand/assets/logo/Logo_black.png":"../skills/veles-brand/assets/logo/Logo_red.png";
+    document.querySelectorAll("[data-layout]").forEach(function(b){b.setAttribute("aria-pressed",b.dataset.layout===state.layout)});
+    document.querySelectorAll("[data-size]").forEach(function(b){b.setAttribute("aria-pressed",b.dataset.size===state.size)});
+  }
+  document.querySelectorAll("[data-layout]").forEach(function(b){b.onclick=function(){state.layout=b.dataset.layout;apply()}});
+  document.querySelectorAll("[data-size]").forEach(function(b){b.onclick=function(){state.size=b.dataset.size;apply()}});
+  var inp=document.getElementById("photo");
+  function setPhoto(u){if(u){ph.style.backgroundImage="url('"+u.replace(/'/g,"%27")+"')";ph.classList.remove("empty");ph.innerHTML=""}}
+  inp.onchange=function(){setPhoto(inp.value.trim())};
+  if(q.get("photo")){inp.value=q.get("photo");setPhoto(q.get("photo"))}
+  apply();
+})();
+</script>
+</body>
+</html>

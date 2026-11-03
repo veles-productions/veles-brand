@@ -1,0 +1,61 @@
+/* Veles Productions — design tokens (CSS custom properties)
+   Source of truth: tokens/tokens.json (W3C DTCG). Keep both files in sync.
+   Palette is CLOSED: any hex not listed here is a brand-QA error.
+   Shades only via rgba() of these values (no new hex). */
+:root {
+  /* color — foundational (Brand 3.0: czerń #160606 zamiast #000000, decyzja 2026-11-01) */
+  --veles-black: #160606;
+  --veles-red: #ef3e46;
+  --veles-grey: #cdd1da;
+
+  /* color — flexible (Brandbook V1) */
+  --veles-panel: #231f20;
+  --veles-grey-mid: #817f7e;
+  --veles-grey-blue: #aab2bd;
+  --veles-near-white: #e7e9ed;
+
+  /* common derived (rgba of palette only) */
+  --veles-red-dim: rgba(239, 62, 70, 0.55);
+  --veles-shadow: rgba(22, 6, 6, 0.55);
+
+  /* typography */
+  --veles-font: 'Alliance No.2', Manrope, sans-serif; /* Brand 3.0; Arial i BR Hendrix wycofane */
+  --veles-w-title: 800;   /* ExtraBold — headlines (najwyzsza waga wspolna Alliance i Manrope) */
+  --veles-w-text: 300;    /* Light  — body */
+  --veles-w-regular: 400; /* digital extension */
+  --veles-w-medium: 500;  /* digital extension */
+  --veles-w-semibold: 600;/* digital extension */
+
+  /* type scale (print pt; operational — see brand/gaps.md G1) */
+  --veles-fs-h1: 30pt;
+  --veles-fs-h2: 15pt;
+  --veles-fs-lede: 12pt;
+  --veles-fs-body: 10.5pt;
+  --veles-fs-label: 9.5pt;
+  --veles-fs-caption: 8.5pt;
+  --veles-fs-footer: 7.5pt;
+
+  /* page chrome (A4 print) */
+  --veles-pad-x: 17mm;
+  --veles-pad-y: 15mm;
+  --veles-logo-min: 10mm; /* brandbook: absolute floor & min edge distance */
+  /* lockup pionowy: wordmark to ~15% wysokosci znaku, wiec 10mm to za malo, zeby
+     napis „VELES" byl czytelny — patrz brand/rules.md, sekcja 1 */
+  --veles-logo-header: 16mm; /* naglowek strony — minimum czytelnosci wordmarku */
+  --veles-logo-cover: 32mm;  /* okladka A4; web: 88px */
+
+  /* motion — CSS/web animation in self-contained HTML docs (webdoc).
+     Doctrine, allowed-list of four moves, prefers-reduced-motion requirement:
+     brand/motion-guidelines.md section 'CSS/web'. */
+  --veles-motion-duration-fast: 200ms;  /* micro-transitions, scroll progress bar */
+  --veles-motion-duration-base: 400ms;  /* section light/dark crossfade/wipe */
+  --veles-motion-duration-slow: 800ms;  /* cover/logo reveal (once, on load) */
+  --veles-motion-duration-draw: 1200ms; /* rune stroke-dashoffset draw-in */
+  --veles-motion-duration-pixel: 220ms; /* znak z pikseli: przejscie jednego piksela */
+  --veles-motion-pixel-step: 4ms;       /* opoznienie kolejnego piksela (r*15+c)*step */
+  --veles-motion-pixel-hold: 3000ms;    /* czas pokazu jednego znaku w hero */
+  --veles-motion-ease-standard: cubic-bezier(0.2, 0, 0, 1); /* sharp, matches 0/45/90 angles */
+  --veles-motion-ease-draw: cubic-bezier(0.16, 1, 0.3, 1);  /* eased-out rune draw */
+  /* prefers-reduced-motion: reduce is MANDATORY on every animated document — no variable,
+     enforced via the @media block pattern in motion-guidelines.md §3. */
+}

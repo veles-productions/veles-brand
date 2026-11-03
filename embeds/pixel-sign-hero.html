@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Veles pixel sign — hero embed</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;600;800&display=swap" rel="stylesheet">
+<style>
+  /* demo page only — not part of the embed */
+  html,body{margin:0;background:#160606;color:#e7e9ed;font-family:'Alliance No.2',Manrope,sans-serif}
+  .demo{min-height:100vh;display:flex;flex-direction:column;justify-content:center;gap:40px;padding:48px 6vw;box-sizing:border-box}
+  .demo h1{font-weight:800;font-size:clamp(48px,9vw,128px);line-height:.95;margin:0;letter-spacing:-.02em}
+  .demo .label{font-weight:600;font-size:13px;letter-spacing:.12em;text-transform:uppercase;display:flex;align-items:center;gap:10px}
+  .demo .label:before{content:"";width:8px;height:8px;background:#ef3e46}
+  .demo p{font-weight:300;max-width:46ch;color:#aab2bd;line-height:1.6;margin:0}
+</style>
+</head>
+<body>
+<div class="demo">
+  <div class="label">Veles Productions</div>
+  <h1>Stories + Systems.</h1>
+
+<!-- ============ VELES EMBED START — paste everything down to END into a Webflow Code Embed ============ -->
+<div class="vx-pixel" data-size="200" aria-label="Veles signs">
+  <div class="vx-pixel-wall" role="img" aria-label="Courage"></div>
+  <div class="vx-pixel-rail" role="tablist"></div>
+</div>
+<style>
+.vx-pixel{--vx-red:#ef3e46;--vx-lit:#e7e9ed;--vx-off:rgba(231,233,237,.07);display:inline-flex;flex-direction:column;gap:18px}
+.vx-pixel-wall{display:grid;grid-template-columns:repeat(15,1fr);gap:var(--vx-gap,2px);width:var(--vx-size,200px);aspect-ratio:1;perspective:900px}
+.vx-px{position:relative;transform-style:preserve-3d;transition:transform 1100ms cubic-bezier(.7,-.25,.25,1.3)}
+.vx-px>i{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--vx-off)}
+.vx-px>i+i{transform:rotateY(180deg)}
+.vx-pixel-rail{display:flex;gap:6px}
+.vx-pixel-rail button{all:unset;cursor:pointer;width:30px;height:30px;display:grid;place-items:center;color:#817f7e;border:1px solid transparent;transition:color 200ms cubic-bezier(.2,0,0,1),border-color 200ms cubic-bezier(.2,0,0,1)}
+.vx-pixel-rail button:hover,.vx-pixel-rail button:focus-visible{color:#e7e9ed}
+.vx-pixel-rail button[aria-selected="true"]{color:#e7e9ed;border-color:rgba(231,233,237,.25)}
+.vx-pixel-rail button[data-sign="courage"][aria-selected="true"]{color:#ef3e46}
+.vx-pixel-rail svg{width:20px;height:20px}
+@media (prefers-reduced-motion:reduce){.vx-px{transition:none}}
+</style>
+<script>
+(function(){
+  var G={
+    courage:["...............",".......#.......","......#.#......",".....#...#.....","....#######....",".......#.......",".......#.......",".......#.......",".#############.",".#.....#.....#.",".......#.......",".......#.......",".......#.......",".......#.......","..............."],
+    power:["...............","..###########..",".....#...#.....",".....#...#.....",".....#####.....",".......#.......",".......#.......",".......#.......",".......#.......",".......#.......",".......#.......",".......#.......",".......#.......",".....#####.....","..............."],
+    connections:["...............","....#####......","....#...#......","....#.#####....","....#.#.#.#....","....#####.#....","......#...#....","......#####....","........#......","........#......","........#......","........#......","........#......","......#####....","..............."],
+    creativity:["...............","...............","...#.......#...","...#..###..#...","...#..#.#..#...","...#..###..#...","...#########...",".......#.......",".......#.......",".......#.......",".......#.......",".......#.......",".......#.......",".....#####.....","..............."],
+    passion:[".......#.......","...#########...","....#.....#....",".....#...#.....","......#.#......",".......#.......",".......#.......","....#######....",".....#...#.....","......#.#......",".......#.......",".......#.......",".......#.......",".......#.......","..............."],
+    integrity:["...............","....#######....","....##...##....","....#.#.#.#....","....#..#..#....","....#.#.#.#....","....##...##....","....#######....",".......#.......",".......#.......",".......#.......",".......#.......",".......#.......",".....#####.....","..............."]
+  };
+  var P={
+    courage:"M30 56 V20 M8 44 V38 H52 V44 M18 20 L30 6 L42 20 Z",
+    power:"M12 8 H48 M22 8 V24 H38 V8 M30 24 V54 M22 54 H38",
+    connections:"M16 8 H36 V28 H16 Z M24 20 H44 V40 H24 Z M34 40 V54 M26 54 H42",
+    creativity:"M14 10 V32 H46 V10 M25 16 H35 V26 H25 Z M30 32 V54 M22 54 H38",
+    passion:"M30 4 V10 M14 10 H46 L30 26 Z M30 26 V30 M18 30 H42 L30 42 Z M30 42 V56",
+    integrity:"M18 6 H42 V30 H18 Z M22 10 L38 26 M38 10 L22 26 M30 30 V54 M22 54 H38"
+  };
+  var ORDER=["courage","power","connections","creativity","passion","integrity"];
+  var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  document.querySelectorAll(".vx-pixel").forEach(function(root){
+    if(root.dataset.ready)return;root.dataset.ready="1";
+    var wall=root.querySelector(".vx-pixel-wall"),rail=root.querySelector(".vx-pixel-rail");
+    var size=parseInt(root.dataset.size||"200",10);
+    wall.style.setProperty("--vx-size",size+"px");
+    wall.style.setProperty("--vx-gap",Math.max(1,Math.round(size/100))+"px");
+    var tiles=[],step=[];
+    for(var r=0;r<15;r++)for(var c=0;c<15;c++){
+      var t=document.createElement("div");t.className="vx-px";
+      t.innerHTML="<i></i><i></i>";
+      t.style.transitionDelay=Math.round(Math.sqrt((r-7)*(r-7)+(c-7)*(c-7))*140)+"ms";
+      wall.appendChild(t);tiles.push(t);step.push(0);
+    }
+    var btns={};
+    ORDER.forEach(function(k){
+      var b=document.createElement("button");b.type="button";b.dataset.sign=k;
+      b.setAttribute("role","tab");b.setAttribute("aria-label",k.charAt(0).toUpperCase()+k.slice(1));
+      b.innerHTML='<svg viewBox="0 0 60 60" aria-hidden="true"><path d="'+P[k]+'" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="square" stroke-linejoin="miter"/></svg>';
+      b.addEventListener("click",function(){stop();show(k)});
+      rail.appendChild(b);btns[k]=b;
+    });
+    var cur=null,timer=null;
+    function show(k){
+      if(k===cur)return;
+      var g=G[k],on=k==="courage"?"var(--vx-red)":"var(--vx-lit)";
+      tiles.forEach(function(t,i){
+        var lit=g[Math.floor(i/15)].charAt(i%15)==="#";
+        var color=lit?on:"var(--vx-off)";
+        if(cur===null){t.children[0].style.background=color;return;}
+        var hidden=t.children[(step[i]+1)%2];
+        hidden.style.background=color;
+        step[i]++;
+        t.style.transform="rotateY("+(step[i]*180)+"deg)";
+      });
+      cur=k;
+      wall.setAttribute("aria-label",k.charAt(0).toUpperCase()+k.slice(1));
+      ORDER.forEach(function(o){btns[o].setAttribute("aria-selected",o===k?"true":"false")});
+    }
+    function stop(){if(timer){clearInterval(timer);timer=null}}
+    show("courage");
+    if(!reduce){
+      var n=0;
+      timer=setInterval(function(){n=(n+1)%ORDER.length;show(ORDER[n])},3600);
+    }
+  });
+})();
+</script>
+<!-- ============ VELES EMBED END ============ -->
+
+  <p>Paste the block between START and END into a Webflow Code Embed. Change the size with
+  <code>data-size="200"</code> (pixels, keep it at or below 200). One live grid per screen.
+  Motion stops automatically for visitors who ask for reduced motion.</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,306 @@
+<!doctype html>
+<!-- Veles webdoc skeleton — scroll-native baza dla dokumentu-strony (materiał do czytania
+     w przeglądarce/link, NIE do druku; document.md/_shared.html zostają dla papieru A4 —
+     ten plik ich nie zastępuje). Placeholdery {{...}} wypełnia scripts/embed_assets.py
+     (fonty/logo/PIXEL_SIGN) lub agent treścią. Anatomia i lista atomów: templates/webdoc.md.
+     Motion: WYŁĄCZNIE 4 dozwolone ruchy z brand/motion-guidelines.md §"CSS/web" — reveal
+     okładki, runa kreślona (stroke-dashoffset), przełom sekcji light/dark, pasek postępu.
+     Zero CDN/bibliotek — self-contained jak reszta systemu. -->
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{{TITLE}}</title>
+<style>
+{{FONT_FACES}}
+:root{
+  /* paleta — ZAMKNIĘTA, źródło prawdy tokens/tokens.css (self-contained HTML nie importuje
+     zewnętrznych plików CSS, dlatego wartości powtórzone tu tak samo jak w _shared.html) */
+  --veles-black:#160606; --veles-red:#ef3e46; --veles-grey:#cdd1da;
+  --veles-panel:#231f20; --veles-grey-mid:#817f7e; --veles-grey-blue:#aab2bd; --veles-near-white:#e7e9ed;
+  --f:'Alliance No.2',Manrope,sans-serif;
+
+  /* motion — te same wartości co tokens/tokens.css kategoria "motion"; NIE hardkoduj innych
+     w atomach niżej, doktryna: brand/motion-guidelines.md §"CSS/web" */
+  --veles-motion-duration-fast:200ms;
+  --veles-motion-duration-base:400ms;
+  --veles-motion-duration-slow:800ms;
+  --veles-motion-duration-draw:1200ms;
+  --veles-motion-ease-standard:cubic-bezier(.2,0,0,1);
+  --veles-motion-ease-draw:cubic-bezier(.16,1,.3,1);
+
+  /* rytm — fluid przez clamp(), scroll-native (bez mm/page-break jak w _shared.html) */
+  --gutter:clamp(1.25rem,5vw,4rem);
+  --measure:70ch;              /* proza w kolumnie 65-75ch */
+  --bleed:min(94vw,1100px);    /* szerszy bleed: .pull / .stats / .cols / table.t / runy */
+  --section-pad:clamp(3.5rem,9vw,7.5rem);
+  --stack:clamp(1rem,3vw,1.75rem);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:auto} /* bez wymuszonego smooth-scroll — to NIE jest jeden z 4 dozwolonych ruchów */
+body{margin:0;font-family:var(--f);font-weight:300;color:var(--veles-panel);background:#fff;
+  -webkit-font-smoothing:antialiased;line-height:1.6}
+
+/* === breakout grid: proza w --measure (kolumna 65-75ch), atomy szerokie w --bleed === */
+.section{
+  display:grid;
+  grid-template-columns:minmax(var(--gutter),1fr) min(var(--measure),calc(100% - 2*var(--gutter))) minmax(var(--gutter),1fr);
+  padding-block:var(--section-pad);
+  background:#fff;color:var(--veles-panel);
+}
+.section > *{grid-column:2}
+.section > .pull,.section > .stats,.section > .cols,.section > table.t{
+  grid-column:1/-1;justify-self:center;width:var(--bleed);
+}
+.section.dark{background:var(--veles-black);color:var(--veles-near-white)}
+.section.dark .h1,.section.dark .h2{color:#fff}
+.section.dark .body,.section.dark .lede{color:var(--veles-near-white)}
+.section.dark .mut{color:var(--veles-grey-blue)}
+
+/* type atoms — te same nazwy co _shared.html, jednostki web (rem/clamp zamiast pt/mm) */
+.label{font-weight:600;font-size:.7rem;letter-spacing:.26em;text-transform:uppercase;color:var(--veles-red)}
+.h1{font-weight:800;font-size:clamp(2.25rem,1.5rem + 3vw,3.75rem);line-height:1.04;letter-spacing:-.015em;color:var(--veles-black);margin:0}
+.h1 .r{color:var(--veles-red)}
+.h2{font-weight:800;font-size:clamp(1.4rem,1.1rem + 1vw,1.85rem);margin:0}
+.lede{font-weight:300;font-size:clamp(1.1rem,1rem + .3vw,1.3rem);line-height:1.55;margin:var(--stack) 0 0}
+.lede strong,.body strong{font-weight:600;color:var(--veles-black)}
+.section.dark .lede strong,.section.dark .body strong{color:#fff}
+.body{font-weight:300;font-size:1.05rem;line-height:1.7;margin:var(--stack) 0 0}
+.mut{color:var(--veles-grey-mid)}
+.acc{width:clamp(40px,6vw,72px);height:3px;background:var(--veles-red);margin:var(--stack) 0 0}
+
+/* .chapter — otwarcie sekcji: mała runa grzbietu + label + h2 (grzbiet w kolumnie prozy) */
+.chapter{display:flex;align-items:center;gap:.9rem;margin-bottom:calc(var(--stack) * .5)}
+.chapter .chapter-meta{display:flex;flex-direction:column;gap:.35rem}
+.rune{color:var(--veles-red);flex:none;display:block}
+.chapter .rune{width:clamp(26px,4vw,38px);height:clamp(26px,4vw,38px)}
+.section.dark .rune{color:var(--veles-red)}
+
+/* .section-break — pełnoekranowy ciemny separator; pieczęć = jedna runa funkcyjna kreślona;
+   wariant .closing (amulet.svg, viewBox -8 0 136 322) TYLKO na końcu dokumentu, jedna na cały
+   webdoc — reguła rzadkości brand/runes.md */
+.section-break{
+  min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:1.5rem;text-align:center;background:var(--veles-black);color:var(--veles-near-white);
+  padding:var(--section-pad) var(--gutter);
+}
+.section-break .rune{width:clamp(96px,16vw,220px);height:auto}
+.section-break.closing .rune{width:clamp(60px,10vw,150px);height:auto}
+.section-break .label{color:var(--veles-grey-blue)}
+.section-break .accent{stroke:var(--veles-red)} /* odwaga i pieczęć w amulecie */
+.section-break .rune{color:var(--veles-near-white)}
+.section-break .rune.fn{color:var(--veles-red)}
+
+/* .pull — cytat, bleed szerszy niż proza */
+.pull{border-left:3px solid var(--veles-red);padding-left:clamp(1.25rem,3vw,2rem);
+  margin:calc(var(--stack) * 1.5) auto;font-weight:300;font-style:italic;
+  font-size:clamp(1.3rem,1.1rem + .6vw,1.75rem);line-height:1.5;color:var(--veles-black)}
+.section.dark .pull{color:#fff}
+.pull cite{display:block;margin-top:.75rem;font-style:normal;font-weight:600;font-size:.75rem;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--veles-grey-mid)}
+
+/* .stat/.stats — z _shared.html, jednostki web */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:clamp(1rem,3vw,1.5rem);margin-top:var(--stack)}
+.stat{background:var(--veles-near-white);border-top:3px solid var(--veles-red);padding:clamp(1.25rem,3vw,1.75rem) clamp(1.1rem,2.5vw,1.5rem)}
+.section.dark .stat{background:rgba(231,233,237,.08)}
+.stat .n{font-weight:800;font-size:clamp(1.9rem,1.6rem + 1.2vw,2.5rem);line-height:1;color:var(--veles-black);letter-spacing:-.02em}
+.section.dark .stat .n{color:#fff}
+.stat .l{font-weight:500;font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--veles-grey-mid);margin-top:.65rem}
+
+/* .cols — z _shared.html */
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:clamp(1rem,3vw,1.5rem);margin-top:var(--stack)}
+.col{background:var(--veles-near-white);padding:clamp(1.1rem,2.5vw,1.5rem);border-top:3px solid var(--veles-black)}
+.col.v2{border-color:var(--veles-grey-blue)} .col.v3{border-color:var(--veles-red)}
+
+/* .tag — z _shared.html, radius w limicie doktryny (<=4px) */
+.tag{display:inline-block;font-weight:600;font-size:.68rem;letter-spacing:.04em;text-transform:uppercase;
+  padding:.25rem .55rem;border-radius:2px;border:1px solid}
+.tag.r{color:var(--veles-red);border-color:var(--veles-red)}
+.tag.k{color:var(--veles-black);border-color:var(--veles-black)}
+.tag.g{color:var(--veles-grey-mid);border-color:var(--veles-grey-blue)}
+.section.dark .tag.k{color:#fff;border-color:var(--veles-near-white)}
+
+/* table.t — z _shared.html */
+table.t{width:100%;border-collapse:collapse;margin-top:var(--stack);font-weight:400;font-size:.95rem}
+table.t th,table.t td{padding:.7rem .85rem;text-align:right;border-bottom:1px solid var(--veles-grey)}
+table.t th:first-child,table.t td:first-child{text-align:left}
+table.t thead th{font-weight:600;font-size:.75rem;letter-spacing:.04em;color:var(--veles-black);vertical-align:bottom;border-bottom:2px solid var(--veles-black)}
+table.t tbody tr:nth-child(even) td{background:rgba(231,233,237,.55)}
+.section.dark table.t th,.section.dark table.t td{border-color:var(--veles-grey-mid)}
+.section.dark table.t thead th{color:#fff;border-bottom-color:#fff}
+.section.dark table.t tbody tr:nth-child(even) td{background:rgba(255,255,255,.06)}
+
+/* .cover — okładka ciemna (jak _shared.html), naturalna wysokość min-height:100vh zamiast mm */
+.cover{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:space-between;
+  background:var(--veles-black);color:#fff;padding:var(--section-pad) var(--gutter);overflow:hidden}
+/* element graficzny Brand 3.0: jeden znak z pikseli (odwaga), statycznie — brand/rules.md §4 */
+.cover .pixel-sign{position:absolute;right:var(--gutter);bottom:var(--gutter);width:clamp(28px,3vw,40px);aspect-ratio:1;background:url("{{PIXEL_SIGN}}") no-repeat center/contain;pointer-events:none}
+/* 88px, nie 44px: lockup jest pionowy, wordmark to ok. 15% wysokości znaku — przy 44px
+   napis „VELES" schodzi do ~6 px i się rozmywa. Patrz komentarz w _shared.html. */
+.cover .logo{height:88px;position:relative;align-self:flex-start}
+.cover .h1{font-size:clamp(2.75rem,1.75rem + 5vw,5rem);color:#fff;position:relative}
+.cover .h1 .r{color:var(--veles-red)}
+.cover .meta{position:relative;font-weight:500;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(--veles-grey-blue)}
+
+/* .scroll-progress — pasek postępu na akcencie (ruch #4, snippet motion-guidelines) */
+.scroll-progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--veles-red);
+  transition:width var(--veles-motion-duration-fast) linear;z-index:100}
+
+/* === motion — WYŁĄCZNIE 4 ruchy z brand/motion-guidelines.md §"CSS/web" ===
+   Bezpieczny domyślny stan: BEZ klasy .js-motion na <html> wszystko jest w pełni widoczne/
+   dokreślone (no-JS, wolny inline-script, prefers-reduced-motion) — zero FOUC/niewidocznej
+   treści. Klasę .js-motion dokleja mikro-inline-script na starcie <body> (patrz niżej),
+   tylko gdy IntersectionObserver istnieje i prefers-reduced-motion NIE jest ustawione. */
+
+/* 1. reveal okładki/logo — jedna sekwencja przy załadowaniu, nigdy w pętli (czysty CSS,
+      nie wymaga JS — pierwsza klatka animacji i tak renderuje się natychmiast) */
+@keyframes veles-reveal{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.cover .logo,.cover .h1,.cover .meta{animation:veles-reveal var(--veles-motion-duration-slow) var(--veles-motion-ease-standard) both}
+.cover .h1{animation-delay:var(--veles-motion-duration-fast)}
+.cover .meta{animation-delay:calc(var(--veles-motion-duration-fast) * 2)}
+
+/* 2. runa kreślona — stroke-dashoffset, odpalana raz przez IntersectionObserver (JS niżej) */
+html.js-motion .rune-draw path{fill:none;stroke-dasharray:var(--rune-length,300);stroke-dashoffset:var(--rune-length,300);
+  transition:stroke-dashoffset var(--veles-motion-duration-draw) var(--veles-motion-ease-draw)}
+html.js-motion .rune-draw.is-visible path{stroke-dashoffset:0}
+
+/* 3. przełom sekcji light/dark — crossfade (.chapter i .section-break).
+   UWAGA: NIE używać clip-path:inset(...100%...) jako stanu wejściowego — wyzerowany
+   obszar renderowania sprawia, że IntersectionObserver ma intersectionRatio=0 na stałe,
+   próg nigdy nie zostaje przekroczony i element nie dostaje .is-visible. */
+html.js-motion .chapter{opacity:0;transition:opacity var(--veles-motion-duration-base) var(--veles-motion-ease-standard)}
+html.js-motion .chapter.is-visible{opacity:1}
+html.js-motion .section-break{opacity:0;
+  transition:opacity var(--veles-motion-duration-base) var(--veles-motion-ease-standard)}
+html.js-motion .section-break.is-visible{opacity:1}
+
+/* 4. pasek postępu — patrz .scroll-progress wyżej + JS niżej (działa niezależnie od
+      .js-motion, bo nie ukrywa treści — to funkcjonalny wskaźnik, nie wejście-ujawnienie) */
+
+@media (prefers-reduced-motion:reduce){
+  .cover .logo,.cover .h1,.cover .meta{animation:none;opacity:1;transform:none}
+  html.js-motion .rune-draw path{transition:none;stroke-dashoffset:0}
+  html.js-motion .chapter{transition:none;opacity:1}
+  html.js-motion .section-break{transition:none;opacity:1}
+  .scroll-progress{transition:none}
+}
+</style>
+</head>
+<body>
+<script>
+/* Gate synchroniczny, PRZED sparsowaniem treści — bez tego .chapter/.section-break/runy
+   byłyby niewidoczne dla no-JS albo do czasu odpalenia IntersectionObserver (FOUC).
+   Domyślnie (bez tej klasy) wszystko w CSS jest w pełni widoczne/dokreślone. */
+if (window.IntersectionObserver && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  document.documentElement.classList.add('js-motion');
+}
+</script>
+
+<div class="scroll-progress"></div>
+
+<!-- COVER (dark): jak w _shared.html — logo czerwone na czerni Veles, znak z pikseli -->
+<section class="cover">
+  <div class="pixel-sign" aria-hidden="true"></div>
+  <img class="logo" src="data:image/png;base64,{{LOGO_RED_B64}}" alt="VELES">
+  <div>
+    <div class="label">{{COVER_LABEL}}</div>
+    <h1 class="h1">{{COVER_TITLE}}</h1>
+  </div>
+  <div class="meta">{{COVER_META}}</div>
+</section>
+
+<!-- CHAPTER pattern (light) — otwarcie rozdziału: rune-chapter.svg + label + h2 -->
+<section class="section">
+  <header class="chapter">
+    <svg class="rune rune-draw" viewBox="0 0 60 60" aria-hidden="true">
+      <path d="M30 8 L44 22 L30 36 L16 22 Z M12 50 H48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"/>
+    </svg>
+    <div class="chapter-meta">
+      <div class="label">{{CHAPTER_LABEL}}</div>
+      <h2 class="h2">{{CHAPTER_TITLE}}</h2>
+    </div>
+  </header>
+  <div class="acc"></div>
+  <p class="lede">{{LEDE}}</p>
+  {{CONTENT}}
+</section>
+
+<!-- CHAPTER pattern (dark) — naprzemienność light/dark jako punktacja rozdziałów -->
+<section class="section dark">
+  <header class="chapter">
+    <svg class="rune rune-draw" viewBox="0 0 60 60" aria-hidden="true">
+      <path d="M30 8 L44 22 L30 36 L16 22 Z M12 50 H48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"/>
+    </svg>
+    <div class="chapter-meta">
+      <div class="label">{{CHAPTER_LABEL}}</div>
+      <h2 class="h2">{{CHAPTER_TITLE}}</h2>
+    </div>
+  </header>
+  <div class="acc"></div>
+  <p class="lede">{{LEDE}}</p>
+  {{CONTENT}}
+</section>
+
+<!-- SECTION-BREAK (separator śróddokumentowy) — jedna runa FUNKCYJNA jako pieczęć chwili;
+     dobierz plik z assets/runes/ do roli treści (rune-insight/rune-risk/rune-decision/
+     rune-growth — NIGDY rune-seal, ta jest zarezerwowana dla zamknięcia dokumentu poniżej).
+     Przykład niżej: rune-insight (kluczowa myśl). -->
+<section class="section-break">
+  <svg class="rune fn rune-draw" viewBox="0 0 60 60" aria-hidden="true">
+    <path d="M18 12 H12 V48 H18 M42 12 H48 V48 H42 M27 27 H33 V33 H27 Z" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"/>
+  </svg>
+  <div class="label">{{BREAK_LABEL}}</div>
+</section>
+
+<!-- CLOSING SEAL — ostatnia sekcja dokumentu, amulet.svg, JEDNA na cały webdoc -->
+<section class="section-break closing">
+  <svg class="rune rune-draw" viewBox="-8 0 136 322" aria-hidden="true">
+    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter">
+    <path d="M60 4 L68 12 L60 20 L52 12 Z M60 20 V34 M60 98 V104 M60 104 L68 112 L60 120 L52 112 Z M60 120 V126 M60 190 V196 M60 196 L68 204 L60 212 L52 204 Z M60 212 V218 M60 282 V290"/>
+    <path class="accent" d="M60 290 L74 304 L60 318 L46 304 Z M60 296 V312 M53 304 H67"/>
+    <g transform="translate(-4 36)"><path class="accent" d="M30 56 V20 M8 44 V38 H52 V44 M18 20 L30 6 L42 20 Z"/></g>
+    <g transform="translate(64 36)"><path d="M12 8 H48 M22 8 V24 H38 V8 M30 24 V54 M22 54 H38"/></g>
+    <g transform="translate(-4 128)"><path d="M16 8 H36 V28 H16 Z M24 20 H44 V40 H24 Z M34 40 V54 M26 54 H42"/></g>
+    <g transform="translate(64 128)"><path d="M14 10 V32 H46 V10 M25 16 H35 V26 H25 Z M30 32 V54 M22 54 H38"/></g>
+    <g transform="translate(-4 220)"><path d="M30 4 V10 M14 10 H46 L30 26 Z M30 26 V30 M18 30 H42 L30 42 Z M30 42 V56"/></g>
+    <g transform="translate(64 220)"><path d="M18 6 H42 V30 H18 Z M22 10 L38 26 M38 10 L22 26 M30 30 V54 M22 54 H38"/></g>
+    </g>
+  </svg>
+  <div class="label">{{SEAL_LABEL}}</div>
+</section>
+
+<script>
+(function(){
+  // .js-motion dokleja mikro-inline-script na starcie <body> — jeśli go nie ma (no-JS albo
+  // prefers-reduced-motion), CSS domyślnie pokazuje wszystko w stanie końcowym i IO nie jest
+  // potrzebny.
+  if (document.documentElement.classList.contains('js-motion')) {
+    // runa kreślona: realna długość ścieżki (getTotalLength), nie przybliżenie na sztywno
+    document.querySelectorAll('.rune-draw path').forEach(function(path){
+      path.style.setProperty('--rune-length', Math.ceil(path.getTotalLength()));
+    });
+
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.35 });
+    document.querySelectorAll('.rune-draw, .chapter, .section-break').forEach(function(el){ io.observe(el); });
+  }
+
+  var bar = document.querySelector('.scroll-progress');
+  if (bar) {
+    window.addEventListener('scroll', function(){
+      var h = document.documentElement;
+      var pct = h.scrollTop / (h.scrollHeight - h.clientHeight || 1);
+      bar.style.width = (Math.max(0, Math.min(1, pct)) * 100) + '%';
+    }, { passive: true });
+  }
+})();
+</script>
+
+</body>
+</html>
